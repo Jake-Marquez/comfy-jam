@@ -11,3 +11,6 @@ https://usasori-data.itch.io/magic-circle-vfx-vol3
 https://mashibobi.itch.io/halloween-pixel-art-pack
 https://pixxilandartstudio.itch.io/2d-pixel-art-undead-pumpking-sprites
 https://captainskolot.itch.io/halloween-pumpkins-pack-top-down-assets-pixelart-pixel-art
+https://maru-98.itch.io/farm-crops-pack-1616-pixel-art-growth-stages-signs-seeds/devlog/1464723/new-release-farm-crops-pack-1616-pixel-art
+https://pixelgnome.itch.io/crops
+https://max-m42.itch.io/pixel-farm-16x16-asset-pack
