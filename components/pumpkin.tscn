@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://bvebjhm4hi3no"]
+
+[ext_resource type="Script" uid="uid://c7hbhf4qd86c8" path="res://components/Pumpkin.cs" id="1_56mgv"]
+[ext_resource type="Texture2D" uid="uid://r6parra0bhr6" path="res://assets/pixel_gnome_pack/Individual Files/Pumpkin/4 - Pumpkin Full.png" id="2_vygka"]
+
+[node name="Pumpkin" type="Node2D" unique_id=733241239]
+script = ExtResource("1_56mgv")
+
+[node name="PumpkinSprite" type="Sprite2D" parent="." unique_id=2121162271]
+texture_filter = 1
+texture = ExtResource("2_vygka")
