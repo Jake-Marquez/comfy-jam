@@ -59,7 +59,7 @@ public partial class Main : Node2D
 
 	public void move_right() // 1200 - -1200
 	{
-		if (_tile_map_layers.Position.X >= -1200)
+		if (_tile_map_layers.Position.X >= -1300)
 		{
 			_texture_rect.Position += new Vector2(-0.1f, 0);
 			_tile_map_layers.Position += new Vector2(-10, 0);
@@ -68,7 +68,7 @@ public partial class Main : Node2D
 
 	public void move_left()
 	{
-		if (_tile_map_layers.Position.X <= 1200)
+		if (_tile_map_layers.Position.X <= 2000)
 		{
 			_texture_rect.Position += new Vector2(0.1f, 0);
 			_tile_map_layers.Position += new Vector2(10, 0);
