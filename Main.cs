@@ -15,9 +15,21 @@ public partial class Main : Node2D
 
 		// Anything in the "dark" group is only visible under the flashlight.
 		_tile_map_layers.AddToGroup("dark");
-		_texture_rect.SetMeta("darkness", 0.6f); // background stays dimly visible
+		_texture_rect.SetMeta("darkness", 0.7f); // background stays dimly visible
 		_texture_rect.AddToGroup("dark");
 		AddChild(new Flashlight());
+
+		// Stagger the start times so the rects don't bob in unison.
+		float delay = 0f;
+		foreach (Node child in _tile_map_layers.GetChildren())
+		{
+			if (child is TextureRect rect)
+			{
+				TextureRect r = rect;
+				GetTree().CreateTimer(delay).Timeout += () => StartBob(r);
+				delay += 0.4f;
+			}
+		}
 		// Node toastParty = GetNode<Node>("/root/ToastParty");
 		// var toastConfig = new Godot.Collections.Dictionary
         // {
@@ -55,6 +67,15 @@ public partial class Main : Node2D
             // direction.Y -= 1;
 			GD.Print("up");
         }
+	}
+
+	// Gently bobs the node up and down forever around its starting height.
+	private void StartBob(Control node, float height = 6f, float duration = 1.2f)
+	{
+		float baseY = node.Position.Y;
+		Tween tween = node.CreateTween().SetLoops().SetTrans(Tween.TransitionType.Sine).SetEase(Tween.EaseType.InOut);
+		tween.TweenProperty(node, "position:y", baseY - height, duration);
+		tween.TweenProperty(node, "position:y", baseY, duration);
 	}
 
 	public void move_right() // 1200 - -1200
