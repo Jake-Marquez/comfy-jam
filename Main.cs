@@ -48,13 +48,13 @@ public partial class Main : Node2D
         if (Input.IsActionPressed("right"))
         {
             // direction.X += 1;
-			GD.Print("right");
+			//GD.Print("right");
 			move_right();
         }
         if (Input.IsActionPressed("left"))
         {
             // direction.X -= 1;
-			GD.Print("left");
+			//GD.Print("left");
 			move_left();
         }
         if (Input.IsActionPressed("down"))
