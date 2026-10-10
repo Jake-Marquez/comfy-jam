@@ -6,12 +6,29 @@ public partial class Main : Node2D
 
 	private TextureRect _texture_rect;
 	private Node2D _tile_map_layers;
+	private InventorySlot InventorySlotLeft;
+	private InventorySlot InventorySlotRight;
+	private TextureButton SeedBagItem;
+	private TextureButton TrimmerItem;
+	private TextureButton ScytheItem;
 	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		_texture_rect = GetNode<TextureRect>("TextureRect");
 		_tile_map_layers = GetNode<Node2D>("TileMapLayers");
+		InventorySlotLeft = GetNode<InventorySlot>("InventorySlotLeft");
+		InventorySlotRight = GetNode<InventorySlot>("InventorySlotRight");
+		SeedBagItem = GetNode<TextureButton>("TileMapLayers/SeedBagItem");
+		TrimmerItem = GetNode<TextureButton>("TileMapLayers/TrimmerItem");
+		ScytheItem = GetNode<TextureButton>("TileMapLayers/ScytheItem");
+
+		InventorySlotLeft.DisplayTool(InventorySlot.ToolType.Flashlight, false, true);
+		InventorySlotRight.DisplayTool(InventorySlot.ToolType.Scythe, true, true);
+
+		SeedBagItem.ButtonUp += () => PickupItem(InventorySlot.ToolType.SeedBag);
+		TrimmerItem.ButtonUp += () => PickupItem(InventorySlot.ToolType.Trimmer);
+		ScytheItem.ButtonUp += () => PickupItem(InventorySlot.ToolType.Scythe);
 
 		// Anything in the "dark" group is only visible under the flashlight.
 		_tile_map_layers.AddToGroup("dark");
@@ -23,9 +40,9 @@ public partial class Main : Node2D
 		float delay = 0f;
 		foreach (Node child in _tile_map_layers.GetChildren())
 		{
-			if (child is TextureRect rect)
+			if (child is TextureButton rect)
 			{
-				TextureRect r = rect;
+				TextureButton r = rect;
 				GetTree().CreateTimer(delay).Timeout += () => StartBob(r);
 				delay += 0.4f;
 			}
@@ -94,5 +111,13 @@ public partial class Main : Node2D
 			_texture_rect.Position += new Vector2(0.1f, 0);
 			_tile_map_layers.Position += new Vector2(10, 0);
 		}
+	}
+
+	public void PickupItem(InventorySlot.ToolType type)
+	{
+		SeedBagItem.Visible = type != InventorySlot.ToolType.SeedBag;
+		TrimmerItem.Visible = type != InventorySlot.ToolType.Trimmer;
+		ScytheItem.Visible = type != InventorySlot.ToolType.Scythe;
+		InventorySlotRight.DisplayTool(type, true);
 	}
 }

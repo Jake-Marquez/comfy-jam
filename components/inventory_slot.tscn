@@ -1,0 +1,88 @@
+[gd_scene format=3 uid="uid://clyon2hmkmi3w"]
+
+[ext_resource type="Script" uid="uid://bv5n5lf8uyu24" path="res://components/InventorySlot.cs" id="1_uq1k1"]
+[ext_resource type="Texture2D" uid="uid://bnrj3ihd4eofh" path="res://assets/inventory_bg.png" id="2_aw2xw"]
+[ext_resource type="Texture2D" uid="uid://ba8ejcorcwfo4" path="res://assets/tools/4.png" id="2_ikx43"]
+[ext_resource type="Texture2D" uid="uid://b0jh8kss8gfx3" path="res://assets/hands/back/back23.png" id="2_uq1k1"]
+[ext_resource type="AudioStream" uid="uid://biemyyyii1csk" path="res://assets/sounds/bag.mp3" id="5_aw2xw"]
+
+[sub_resource type="Animation" id="Animation_80q14"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureRect:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_hp6xf"]
+resource_name = "pulse"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureRect:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.23333333, 0.46666667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rfxdy"]
+_data = {
+&"RESET": SubResource("Animation_80q14"),
+&"pulse": SubResource("Animation_hp6xf")
+}
+
+[node name="InventorySlot" type="Node2D" unique_id=46035862]
+script = ExtResource("1_uq1k1")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1031964177]
+self_modulate = Color(1, 1, 1, 0.18039216)
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1483359011]
+self_modulate = Color(1, 1, 1, 0)
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+texture = ExtResource("2_aw2xw")
+
+[node name="InventorySprite" type="Sprite2D" parent="." unique_id=452670631]
+texture_filter = 1
+texture = ExtResource("2_ikx43")
+
+[node name="RightHandSprite" type="Sprite2D" parent="." unique_id=1810590254]
+self_modulate = Color(1, 1, 1, 0.7058824)
+texture_filter = 1
+position = Vector2(15, 13)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("2_uq1k1")
+
+[node name="LeftHandSprite" type="Sprite2D" parent="." unique_id=117940998]
+visible = false
+self_modulate = Color(1, 1, 1, 0.7058824)
+texture_filter = 1
+position = Vector2(-15, 13)
+scale = Vector2(-0.8, 0.8)
+texture = ExtResource("2_uq1k1")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1188623162]
+libraries/ = SubResource("AnimationLibrary_rfxdy")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=4114712]
+visible = false
+stream = ExtResource("5_aw2xw")

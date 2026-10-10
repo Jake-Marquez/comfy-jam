@@ -6,8 +6,9 @@
 [ext_resource type="Texture2D" uid="uid://cnn3x0llblrn7" path="res://assets/raised_bed.png" id="4_1bvp3"]
 [ext_resource type="Texture2D" uid="uid://dphkjb8vhwh1r" path="res://assets/abandoned_shed.png" id="5_lquwl"]
 [ext_resource type="Texture2D" uid="uid://b2xc0epy2w58o" path="res://assets/tools/29.png" id="6_5vw27"]
-[ext_resource type="Texture2D" uid="uid://bxqbmlntfenwr" path="res://assets/tools/61.png" id="7_kek77"]
+[ext_resource type="Texture2D" uid="uid://cprtug24llesx" path="res://assets/tools/6.png" id="6_kek77"]
 [ext_resource type="Texture2D" uid="uid://2lcnjgja50ku" path="res://assets/tools/25.png" id="8_4c57u"]
+[ext_resource type="PackedScene" uid="uid://clyon2hmkmi3w" path="res://components/inventory_slot.tscn" id="9_kek77"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7mycd"]
 texture = ExtResource("5_lquwl")
@@ -211,31 +212,55 @@ scale = Vector2(4, 4)
 tile_map_data = PackedByteArray("AADs/wgAAAAAAAAAAADs/wkAAAAAAAEAAADs/woAAAAAAAIAAADt/woAAAABAAIAAADu/woAAAACAAIAAADv/woAAAABAAIAAADw/woAAAACAAIAAADx/woAAAABAAIAAADy/woAAAACAAIAAADz/woAAAABAAIAAAD0/woAAAACAAIAAAD1/woAAAABAAIAAAD2/woAAAACAAIAAAD3/woAAAABAAIAAAD4/woAAAACAAIAAAD5/woAAAABAAIAAAD6/woAAAACAAIAAAD7/woAAAABAAIAAAD8/woAAAACAAIAAAD9/woAAAABAAIAAAD+/woAAAACAAIAAAD//woAAAABAAIAAAAAAAoAAAACAAIAAAABAAoAAAABAAIAAAACAAoAAAACAAIAAAADAAoAAAABAAIAAAAEAAoAAAACAAIAAAAFAAoAAAABAAIAAAAGAAoAAAACAAIAAAAHAAoAAAABAAIAAAAIAAoAAAACAAIAAAAJAAoAAAABAAIAAAAKAAoAAAACAAIAAAALAAoAAAABAAIAAAAMAAoAAAACAAIAAAANAAoAAAABAAIAAAAOAAoAAAACAAIAAAAPAAoAAAABAAIAAAAQAAoAAAACAAIAAAARAAoAAAABAAIAAAASAAoAAAACAAIAAAATAAoAAAABAAIAAAAUAAoAAAACAAIAAAAVAAoAAAABAAIAAAAWAAoAAAACAAIAAAAXAAoAAAABAAIAAAAYAAoAAAACAAIAAAAZAAoAAAABAAIAAAAaAAoAAAACAAIAAAAbAAoAAAABAAIAAAAcAAoAAAACAAIAAAAdAAoAAAABAAIAAAAeAAoAAAACAAIAAAAfAAoAAAABAAIAAAAgAAoAAAACAAIAAAAhAAoAAAABAAIAAAAiAAoAAAACAAIAAAAjAAoAAAABAAIAAAAkAAoAAAACAAIAAAAlAAgAAAADAAAAAAAlAAkAAAADAAEAAAAlAAoAAAADAAIAAAA=")
 tile_set = SubResource("TileSet_mgt3g")
 
-[node name="TextureRect" type="TextureRect" parent="TileMapLayers" unique_id=1941897545]
-texture_filter = 1
-offset_left = -1402.0
-offset_top = 599.0
-offset_right = -1362.0
-offset_bottom = 639.0
-scale = Vector2(2, 2)
-texture = ExtResource("6_5vw27")
-
-[node name="TextureRect2" type="TextureRect" parent="TileMapLayers" unique_id=887703576]
+[node name="SeedBagItem" type="TextureButton" parent="TileMapLayers" unique_id=2025186836]
 texture_filter = 1
 offset_left = -1623.0
 offset_top = 598.0
 offset_right = -1583.0
 offset_bottom = 638.0
 scale = Vector2(2, 2)
-texture = ExtResource("7_kek77")
+texture_normal = ExtResource("6_kek77")
+texture_pressed = ExtResource("6_kek77")
+texture_hover = ExtResource("6_kek77")
+texture_disabled = ExtResource("6_kek77")
+texture_focused = ExtResource("6_kek77")
+stretch_mode = 0
 metadata/_edit_use_anchors_ = true
 
-[node name="TextureRect3" type="TextureRect" parent="TileMapLayers" unique_id=108519231]
+[node name="TrimmerItem" type="TextureButton" parent="TileMapLayers" unique_id=1772028277]
 texture_filter = 1
 offset_left = -1511.0
 offset_top = 601.0
 offset_right = -1471.0
 offset_bottom = 641.0
 scale = Vector2(2, 2)
-texture = ExtResource("8_4c57u")
+texture_normal = ExtResource("8_4c57u")
+texture_pressed = ExtResource("8_4c57u")
+texture_hover = ExtResource("8_4c57u")
+texture_disabled = ExtResource("8_4c57u")
+texture_focused = ExtResource("8_4c57u")
+stretch_mode = 0
 metadata/_edit_use_anchors_ = true
+
+[node name="ScytheItem" type="TextureButton" parent="TileMapLayers" unique_id=174736626]
+visible = false
+texture_filter = 1
+offset_left = -1402.0
+offset_top = 599.0
+offset_right = -1362.0
+offset_bottom = 639.0
+scale = Vector2(2, 2)
+texture_normal = ExtResource("6_5vw27")
+texture_pressed = ExtResource("6_5vw27")
+texture_hover = ExtResource("6_5vw27")
+texture_disabled = ExtResource("6_5vw27")
+texture_focused = ExtResource("6_5vw27")
+stretch_mode = 0
+
+[node name="InventorySlotLeft" parent="." unique_id=46035862 instance=ExtResource("9_kek77")]
+position = Vector2(526, 35)
+scale = Vector2(1.5, 1.5)
+
+[node name="InventorySlotRight" parent="." unique_id=1034482932 instance=ExtResource("9_kek77")]
+position = Vector2(626, 35)
+scale = Vector2(1.5, 1.5)
