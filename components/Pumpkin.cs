@@ -13,16 +13,38 @@ public partial class Pumpkin : Node2D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		GD.Print("test");
+		if (!seedGerminated())
+		{
+			return;
+		}
 
 		_sprite2D = GetNode<Sprite2D>("PumpkinSprite");
 
-		SetPumpkinSprite(2);
+		setPumpkinSprite(2);
 
 		_pumpkinLifetime = MAX_PUMPKIN_LIFETIME;
 	}
 
-	private void SetPumpkinSprite(int  pumpkinSpriteNum)
+	private bool seedGerminated()
+	{
+		//randomly delete node aka the seed did not germinate
+
+		// a cursory google search finds that the germination rate is 85-90%
+		// let's choose a 3/20 chance of failure
+		// we may want to make the odds worse to make the gameplay more interesting
+
+		int diceRoll = Random.Shared.Next(1, 21);
+
+		if (diceRoll < 4)
+		{
+			QueueFree();
+			return false;
+		}
+
+		return true;
+	}
+
+	private void setPumpkinSprite(int  pumpkinSpriteNum)
 	{
 		switch(pumpkinSpriteNum)
 		{
@@ -39,7 +61,6 @@ public partial class Pumpkin : Node2D
 			case 5:
 				_sprite2D.Texture = GD.Load<Texture2D>(_pumpkinFolder + "5 - Pumpkin Wilt.png");
 				break;
-
 		}
 	}
 
@@ -53,15 +74,15 @@ public partial class Pumpkin : Node2D
 		}
 		else if (_pumpkinLifetime <= 75 && _pumpkinLifetime > 50)
 		{
-			SetPumpkinSprite(3);
+			setPumpkinSprite(3);
 		}
 		else if (_pumpkinLifetime <= 50 && _pumpkinLifetime > 25)
 		{
-			SetPumpkinSprite(4);
+			setPumpkinSprite(4);
 		}
 		else if (_pumpkinLifetime <= 25 && _pumpkinLifetime > 0)
 		{
-			SetPumpkinSprite(5);
+			setPumpkinSprite(5);
 		}
 		else if (_pumpkinLifetime <= 0)
 		{

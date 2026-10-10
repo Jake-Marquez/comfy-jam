@@ -11,6 +11,8 @@ texture_filter = 1
 texture = ExtResource("2_vygka")
 
 [node name="Timer" type="Timer" parent="." unique_id=1494755713]
+wait_time = 0.1
 autostart = true
+ignore_time_scale = true
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
