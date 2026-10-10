@@ -31,6 +31,7 @@ public partial class Pumpkin : Node2D
 	private double first_phase_end;
 	private double second_phase_end;
 	private double third_phase_end;
+	private int pumpkin_state_int = 0;
 	public PumpkinState state = PumpkinState.Normal;
 
 	// Called when the node enters the scene tree for the first time.
@@ -56,8 +57,6 @@ public partial class Pumpkin : Node2D
 		setPumpkinSprite(2);
 
 		setPumpkinLifetime();
-
-		// start_corruption();
 	}
 
 	private void setPumpkinLifetime()
@@ -111,8 +110,10 @@ public partial class Pumpkin : Node2D
 		return true;
 	}
 
-	private void setPumpkinSprite(int  pumpkinSpriteNum)
+	// returns true if an image was actually changed
+	private bool setPumpkinSprite(int  pumpkinSpriteNum)
 	{
+		if (pumpkinSpriteNum == pumpkin_state_int) return false;
 		switch(pumpkinSpriteNum)
 		{
 			default: break;
@@ -129,6 +130,8 @@ public partial class Pumpkin : Node2D
 				_sprite2D.Texture = GD.Load<Texture2D>(_pumpkinFolder + "5 - Pumpkin Wilt.png");
 				break;
 		}
+		pumpkin_state_int = pumpkinSpriteNum;
+		return true;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -200,8 +203,7 @@ public partial class Pumpkin : Node2D
 
 	private void _on_timer_timeout()
 	{
-		GD.Print(_pumpkinLifetime);
-
+		if (state != PumpkinState.Normal) return;
 		if (_pumpkinLifetime > 0)
 		{
 			_pumpkinLifetime -= 5;

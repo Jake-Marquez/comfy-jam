@@ -1,7 +1,7 @@
 [gd_scene format=4 uid="uid://c7urtbcw4vydr"]
 
 [ext_resource type="Script" uid="uid://bcgbdn68k3kgn" path="res://Main.cs" id="1_ig7tw"]
-[ext_resource type="Texture2D" uid="uid://bm6mpsevi8fwn" path="res://assets/autumn_pixel_backgrounds/PNG/background 1/background 1.png" id="2_0xm2m"]
+[ext_resource type="Texture2D" uid="uid://lkuet8ipyx8o" path="res://assets/autumn_pixel_backgrounds/PNG/background 4/background 4.png" id="2_4c57u"]
 [ext_resource type="Texture2D" uid="uid://cxi2du4nxvp7t" path="res://assets/farm/farm_tileset_16x16.png" id="3_h2yge"]
 [ext_resource type="PackedScene" uid="uid://bvebjhm4hi3no" path="res://components/pumpkin.tscn" id="3_kek77"]
 [ext_resource type="Texture2D" uid="uid://cnn3x0llblrn7" path="res://assets/raised_bed.png" id="4_1bvp3"]
@@ -180,7 +180,7 @@ offset_top = -5.0
 offset_right = 1086.0
 offset_bottom = 644.0
 scale = Vector2(1.1, 1.1)
-texture = ExtResource("2_0xm2m")
+texture = ExtResource("2_4c57u")
 
 [node name="TileMapLayers" type="Node2D" parent="." unique_id=2078550980]
 position = Vector2(0, -59)

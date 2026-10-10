@@ -394,7 +394,6 @@ texture = ExtResource("2_u6ffq")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=231475438]
 libraries/ = SubResource("AnimationLibrary_ji4op")
-autoplay = &"gnome_in_front"
 
 [node name="GnomeLaugh" type="AudioStreamPlayer2D" parent="." unique_id=950724035]
 stream = ExtResource("4_u6ffq")
@@ -404,7 +403,7 @@ attenuation = 3.0
 
 [node name="GnomeSurprise" type="AudioStreamPlayer2D" parent="." unique_id=1125934540]
 stream = ExtResource("6_nppah")
-volume_db = -30.0
+volume_db = -20.0
 pitch_scale = 1.1
 max_distance = 2500.0
 attenuation = 3.0
