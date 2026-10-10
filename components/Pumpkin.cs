@@ -164,6 +164,7 @@ public partial class Pumpkin : Node2D
 
 	}
 
+	// called by the main script in the future, to start corruption
 	public void start_corruption()
 	{
 		if (state == PumpkinState.Corrupting) return;
@@ -175,6 +176,8 @@ public partial class Pumpkin : Node2D
 		_animation_player.Play("gnome_in_front");
 	}
 
+	// called when the mouse (flashlight) gets close to the pumpkin
+	// reverses the corruption animation direction
 	public void stop_corruption()
 	{
 		if (state != PumpkinState.Corrupting) return;
@@ -185,6 +188,7 @@ public partial class Pumpkin : Node2D
 		_gnome_surprise.Play();
 	}
 
+	// called when the corruption animation finishes, going forward or backwards
 	private void finish_corruption()
 	{
 		// If the animation was going backwards, it reverts to original lifecycle
@@ -205,6 +209,7 @@ public partial class Pumpkin : Node2D
 
 	private void _on_timer_timeout()
 	{
+		// If the state is evil, corrupting, corrupted, this timer should'nt do anything
 		if (state != PumpkinState.Normal) return;
 		if (_pumpkinLifetime > 0)
 		{
