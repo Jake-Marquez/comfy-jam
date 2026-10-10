@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://bcgbdn68k3kgn" path="res://Main.cs" id="1_ig7tw"]
 [ext_resource type="Texture2D" uid="uid://bm6mpsevi8fwn" path="res://assets/autumn_pixel_backgrounds/PNG/background 1/background 1.png" id="2_0xm2m"]
 [ext_resource type="Texture2D" uid="uid://cxi2du4nxvp7t" path="res://assets/farm/farm_tileset_16x16.png" id="3_h2yge"]
+[ext_resource type="PackedScene" uid="uid://bvebjhm4hi3no" path="res://components/pumpkin.tscn" id="3_kek77"]
 [ext_resource type="Texture2D" uid="uid://cnn3x0llblrn7" path="res://assets/raised_bed.png" id="4_1bvp3"]
 [ext_resource type="Texture2D" uid="uid://dphkjb8vhwh1r" path="res://assets/abandoned_shed.png" id="5_lquwl"]
 [ext_resource type="Texture2D" uid="uid://b2xc0epy2w58o" path="res://assets/tools/29.png" id="6_5vw27"]
@@ -179,6 +180,10 @@ offset_right = 1086.0
 offset_bottom = 644.0
 scale = Vector2(1.1, 1.1)
 texture = ExtResource("2_0xm2m")
+
+[node name="Pumpkin" parent="." unique_id=733241239 instance=ExtResource("3_kek77")]
+position = Vector2(592, 279)
+scale = Vector2(6, 6)
 
 [node name="TileMapLayers" type="Node2D" parent="." unique_id=2078550980]
 position = Vector2(0, -59)
