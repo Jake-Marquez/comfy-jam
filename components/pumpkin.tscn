@@ -403,7 +403,7 @@ attenuation = 3.0
 
 [node name="GnomeSurprise" type="AudioStreamPlayer2D" parent="." unique_id=1125934540]
 stream = ExtResource("6_nppah")
-volume_db = -20.0
+volume_db = -30.0
 pitch_scale = 1.1
 max_distance = 2500.0
 attenuation = 3.0

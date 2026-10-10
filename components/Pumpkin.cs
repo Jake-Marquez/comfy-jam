@@ -148,6 +148,8 @@ public partial class Pumpkin : Node2D
 		}
 		else if ((_pumpkinLifetime <= second_phase_end) && (_pumpkinLifetime > third_phase_end))
 		{
+			// Uncomment this instead of line 153 if you want to see corruption animation for fun 
+			// if (setPumpkinSprite(4)) start_corruption();
 			setPumpkinSprite(4);
 		}
 		else if ((_pumpkinLifetime <= third_phase_end) && (_pumpkinLifetime > 0))
