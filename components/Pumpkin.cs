@@ -4,7 +4,7 @@ using System;
 public partial class Pumpkin : Node2D
 {
 
-	private Sprite2D _sprite2D;
+	private Sprite2D _pumpkinNode;
 
 	private double _pumpkinLifetime;
 	private const string _pumpkinFolder = "res://assets/pixel_gnome_pack/Individual Files/Pumpkin/";
@@ -29,7 +29,7 @@ public partial class Pumpkin : Node2D
 			return;
 		}
 
-		_sprite2D = GetNode<Sprite2D>("PumpkinSprite");
+		_pumpkinNode = GetNode<Sprite2D>("PumpkinSprite");
 
 		setPumpkinSprite(2);
 
@@ -45,32 +45,26 @@ public partial class Pumpkin : Node2D
 		if (coin)
 		{
 			_pumpkinLifetime = MAX_PUMPKIN_LIFETIME - randomVariance;
-
-
 		}
 		else
 		{
 			_pumpkinLifetime = MAX_PUMPKIN_LIFETIME + randomVariance;
 		}
-		
 
 		double half = _pumpkinLifetime / 2;
 
 		double quarter = half / 2;
 
 		first_phase_end = _pumpkinLifetime- quarter;
-		GD.Print(first_phase_end);
 
 		second_phase_end = _pumpkinLifetime - half;
-		GD.Print(second_phase_end);
-
 
 		third_phase_end = _pumpkinLifetime - (half + quarter);
 	}
 
 	private bool seedGerminated()
 	{
-		//randomly delete node aka the seed did not germinate
+		//randomly hide node aka the seed did not germinate
 
 		// a cursory google search finds that the germination rate is 85-90%
 		// let's choose a 3/20 chance of failure
@@ -80,11 +74,14 @@ public partial class Pumpkin : Node2D
 
 		if (diceRoll < 4)
 		{
-			QueueFree();
+			_pumpkinNode.Visible = false;
 			return false;
 		}
-
-		return true;
+		else
+		{
+			_pumpkinNode.Visible = true;
+            return true;
+        }
 	}
 
 	private void setPumpkinSprite(int  pumpkinSpriteNum)
@@ -93,16 +90,16 @@ public partial class Pumpkin : Node2D
 		{
 			default: break;
 			case 2:
-				_sprite2D.Texture = GD.Load<Texture2D>(_pumpkinFolder + "2 - Pumpkin Sprout.png");
+				_pumpkinNode.Texture = GD.Load<Texture2D>(_pumpkinFolder + "2 - Pumpkin Sprout.png");
 				break;
 			case 3:
-				_sprite2D.Texture = GD.Load<Texture2D>(_pumpkinFolder + "3 - Pumpkin Mid.png");
+				_pumpkinNode.Texture = GD.Load<Texture2D>(_pumpkinFolder + "3 - Pumpkin Mid.png");
 				break;
 			case 4:
-				_sprite2D.Texture = GD.Load<Texture2D>(_pumpkinFolder + "4 - Pumpkin Full.png");
+				_pumpkinNode.Texture = GD.Load<Texture2D>(_pumpkinFolder + "4 - Pumpkin Full.png");
 				break;
 			case 5:
-				_sprite2D.Texture = GD.Load<Texture2D>(_pumpkinFolder + "5 - Pumpkin Wilt.png");
+				_pumpkinNode.Texture = GD.Load<Texture2D>(_pumpkinFolder + "5 - Pumpkin Wilt.png");
 				break;
 		}
 	}
@@ -129,9 +126,9 @@ public partial class Pumpkin : Node2D
 		}
 		else if (_pumpkinLifetime <= 0)
 		{
-			// delete node
-			QueueFree();
-		}
+            // hide node
+            _pumpkinNode.Visible = false;
+        }
 
 	}
 
