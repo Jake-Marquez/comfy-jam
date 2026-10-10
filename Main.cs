@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 public partial class Main : Node2D
 {
@@ -11,6 +12,7 @@ public partial class Main : Node2D
 	private TextureButton SeedBagItem;
 	private TextureButton TrimmerItem;
 	private TextureButton ScytheItem;
+	private Node2D Pumpkins;
 	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -22,6 +24,20 @@ public partial class Main : Node2D
 		SeedBagItem = GetNode<TextureButton>("TileMapLayers/SeedBagItem");
 		TrimmerItem = GetNode<TextureButton>("TileMapLayers/TrimmerItem");
 		ScytheItem = GetNode<TextureButton>("TileMapLayers/ScytheItem");
+		Pumpkins = GetNode<Node2D>("TileMapLayers/Pumpkins");
+
+		// 1 Decide if you want to dynamically instance pumpkins and insert them or 
+		// use the godot editor and just drag a bunch in at their permanent position
+		// 1A if you are dynamically inserting, create a loop or whatever here to loop through positions 
+		// follow the below sample to dynamically instance and add
+		// PackedScene PumpkinScene = GD.Load<PackedScene>("res://components/pumpkin.tscn");
+		// Pumpkin PumpkinInstance = (Pumpkin)PumpkinScene.Instantiate();
+		// Pumpkins.AddChild(PumpkinInstance);
+		// PumpkinInstance.Position = new Vector2(100, 100);
+		// GD.Print("Pumpkin created!");
+
+		// 2 update the pumkin scene to not delete itself, but just set nodes to hidden or switch the pumpkin image to blank
+
 
 		InventorySlotLeft.DisplayTool(InventorySlot.ToolType.Flashlight, false, true);
 		InventorySlotRight.DisplayTool(InventorySlot.ToolType.Scythe, true, true);
