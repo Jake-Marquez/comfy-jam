@@ -182,10 +182,6 @@ offset_bottom = 644.0
 scale = Vector2(1.1, 1.1)
 texture = ExtResource("2_0xm2m")
 
-[node name="Pumpkin" parent="." unique_id=733241239 instance=ExtResource("3_kek77")]
-position = Vector2(592, 279)
-scale = Vector2(6, 6)
-
 [node name="TileMapLayers" type="Node2D" parent="." unique_id=2078550980]
 position = Vector2(0, -59)
 
@@ -261,6 +257,12 @@ texture_hover = ExtResource("6_5vw27")
 texture_disabled = ExtResource("6_5vw27")
 texture_focused = ExtResource("6_5vw27")
 stretch_mode = 0
+
+[node name="Node2D" type="Node2D" parent="TileMapLayers" unique_id=1548337973]
+
+[node name="Pumpkin" parent="TileMapLayers/Node2D" unique_id=733241239 instance=ExtResource("3_kek77")]
+position = Vector2(592, 338)
+scale = Vector2(6, 6)
 
 [node name="InventorySlotLeft" parent="." unique_id=46035862 instance=ExtResource("9_kek77")]
 position = Vector2(526, 35)

@@ -4,7 +4,20 @@ using System;
 public partial class Pumpkin : Node2D
 {
 
+	public enum PumpkinState
+	{
+		Normal,
+		Corrupting,
+		Evil,
+		Healing
+	}
+
 	private Sprite2D _sprite2D;
+	private AnimatedSprite2D _pumpkin_evil_sprite;
+	private AnimationPlayer _animation_player;
+	private AudioStreamPlayer2D _gnome_laugh;
+	private AudioStreamPlayer2D _gnome_surprise;
+	private Area2D _area_2d;
 
 	private double _pumpkinLifetime;
 	private const string _pumpkinFolder = "res://assets/pixel_gnome_pack/Individual Files/Pumpkin/";
@@ -18,6 +31,7 @@ public partial class Pumpkin : Node2D
 	private double first_phase_end;
 	private double second_phase_end;
 	private double third_phase_end;
+	public PumpkinState state = PumpkinState.Normal;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -30,10 +44,20 @@ public partial class Pumpkin : Node2D
 		}
 
 		_sprite2D = GetNode<Sprite2D>("PumpkinSprite");
+		_pumpkin_evil_sprite = GetNode<AnimatedSprite2D>("PumpkinEvilSprite");
+		_animation_player = GetNode<AnimationPlayer>("AnimationPlayer");
+		_gnome_laugh = GetNode<AudioStreamPlayer2D>("GnomeLaugh");
+		_gnome_surprise = GetNode<AudioStreamPlayer2D>("GnomeSurprise");
+		_area_2d = GetNode<Area2D>("Area2D");
+
+		_pumpkin_evil_sprite.AnimationFinished += () => finish_corruption();
+		_area_2d.MouseEntered += () => stop_corruption();
 
 		setPumpkinSprite(2);
 
 		setPumpkinLifetime();
+
+		// start_corruption();
 	}
 
 	private void setPumpkinLifetime()
@@ -133,6 +157,45 @@ public partial class Pumpkin : Node2D
 			QueueFree();
 		}
 
+	}
+
+	public void start_corruption()
+	{
+		if (state == PumpkinState.Corrupting) return;
+		state = PumpkinState.Corrupting;
+		_sprite2D.Visible = false;
+		_pumpkin_evil_sprite.Visible = true;
+		_pumpkin_evil_sprite.SpeedScale = 1;
+		_pumpkin_evil_sprite.Play("corruption");
+		_animation_player.Play("gnome_in_front");
+	}
+
+	public void stop_corruption()
+	{
+		if (state != PumpkinState.Corrupting) return;
+		state = PumpkinState.Healing;
+		_pumpkin_evil_sprite.SpeedScale = -1;
+		_animation_player.Stop();
+		_gnome_laugh.Stop();
+		_gnome_surprise.Play();
+	}
+
+	private void finish_corruption()
+	{
+		// If the animation was going backwards, it reverts to original lifecycle
+		if (_pumpkin_evil_sprite.SpeedScale == -1)
+		{
+			_sprite2D.Visible = true;
+			_pumpkin_evil_sprite.Visible = false;
+			state = PumpkinState.Normal;
+		}
+
+		// If the animation was going forwards, its permanently evil now
+		if (_pumpkin_evil_sprite.SpeedScale == 1)
+		{
+			_animation_player.Stop();
+			state = PumpkinState.Evil;
+		}
 	}
 
 	private void _on_timer_timeout()
