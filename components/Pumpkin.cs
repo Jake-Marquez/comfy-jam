@@ -8,13 +8,24 @@ public partial class Pumpkin : Node2D
 
 	private double _pumpkinLifetime;
 	private const string _pumpkinFolder = "res://assets/pixel_gnome_pack/Individual Files/Pumpkin/";
+	
+	// use init here as well
 	private const double MAX_PUMPKIN_LIFETIME = 100;
+
+	private const int PERCENT_VARIANCE = 50;
+
+	// can only be set once?
+	private double first_phase_end;
+	private double second_phase_end;
+	private double third_phase_end;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		if (!seedGerminated())
 		{
+			// maybe there should be an indicator to the user that this seed/plot hasn't germinated
+			// alternatively, IRL you don't know that germination has failed besides seeing no sprout
 			return;
 		}
 
@@ -22,7 +33,39 @@ public partial class Pumpkin : Node2D
 
 		setPumpkinSprite(2);
 
-		_pumpkinLifetime = MAX_PUMPKIN_LIFETIME;
+		setPumpkinLifetime();
+	}
+
+	private void setPumpkinLifetime()
+	{
+		double randomVariance = Random.Shared.Next(0, PERCENT_VARIANCE + 1) / MAX_PUMPKIN_LIFETIME;
+
+		bool coin = Random.Shared.Next(0, 2) == 1;
+
+		if (coin)
+		{
+			_pumpkinLifetime = MAX_PUMPKIN_LIFETIME - randomVariance;
+
+
+		}
+		else
+		{
+			_pumpkinLifetime = MAX_PUMPKIN_LIFETIME + randomVariance;
+		}
+		
+
+		double half = _pumpkinLifetime / 2;
+
+		double quarter = half / 2;
+
+		first_phase_end = _pumpkinLifetime- quarter;
+		GD.Print(first_phase_end);
+
+		second_phase_end = _pumpkinLifetime - half;
+		GD.Print(second_phase_end);
+
+
+		third_phase_end = _pumpkinLifetime - (half + quarter);
 	}
 
 	private bool seedGerminated()
@@ -68,19 +111,19 @@ public partial class Pumpkin : Node2D
 	public override void _Process(double delta)
 	{
 		// make this prettier
-		if (_pumpkinLifetime > 75)
+		if (_pumpkinLifetime > first_phase_end)
 		{
 			return;
 		}
-		else if (_pumpkinLifetime <= 75 && _pumpkinLifetime > 50)
+		else if ((_pumpkinLifetime <= first_phase_end) && (_pumpkinLifetime > second_phase_end))
 		{
 			setPumpkinSprite(3);
 		}
-		else if (_pumpkinLifetime <= 50 && _pumpkinLifetime > 25)
+		else if ((_pumpkinLifetime <= second_phase_end) && (_pumpkinLifetime > third_phase_end))
 		{
 			setPumpkinSprite(4);
 		}
-		else if (_pumpkinLifetime <= 25 && _pumpkinLifetime > 0)
+		else if ((_pumpkinLifetime <= third_phase_end) && (_pumpkinLifetime > 0))
 		{
 			setPumpkinSprite(5);
 		}
