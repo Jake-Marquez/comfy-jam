@@ -37,13 +37,6 @@ public partial class Pumpkin : Node2D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		if (!seedGerminated())
-		{
-			// maybe there should be an indicator to the user that this seed/plot hasn't germinated
-			// alternatively, IRL you don't know that germination has failed besides seeing no sprout
-			return;
-		}
-
 		_sprite2D = GetNode<Sprite2D>("PumpkinSprite");
 		_pumpkin_evil_sprite = GetNode<AnimatedSprite2D>("PumpkinEvilSprite");
 		_animation_player = GetNode<AnimationPlayer>("AnimationPlayer");
@@ -53,6 +46,13 @@ public partial class Pumpkin : Node2D
 
 		_pumpkin_evil_sprite.AnimationFinished += () => finish_corruption();
 		_area_2d.MouseEntered += () => stop_corruption();
+
+		if (!seedGerminated())
+		{
+			// maybe there should be an indicator to the user that this seed/plot hasn't germinated
+			// alternatively, IRL you don't know that germination has failed besides seeing no sprout
+			return;
+		}
 
 		setPumpkinSprite(2);
 
@@ -68,26 +68,21 @@ public partial class Pumpkin : Node2D
 		if (coin)
 		{
 			_pumpkinLifetime = MAX_PUMPKIN_LIFETIME - randomVariance;
-
-
 		}
 		else
 		{
 			_pumpkinLifetime = MAX_PUMPKIN_LIFETIME + randomVariance;
 		}
-		
 
 		double half = _pumpkinLifetime / 2;
 
 		double quarter = half / 2;
 
 		first_phase_end = _pumpkinLifetime- quarter;
-		GD.Print(first_phase_end);
 
 		second_phase_end = _pumpkinLifetime - half;
-		GD.Print(second_phase_end);
 
-
+		// should the third phase last longer to give the player more time to harvest?
 		third_phase_end = _pumpkinLifetime - (half + quarter);
 	}
 
@@ -103,7 +98,10 @@ public partial class Pumpkin : Node2D
 
 		if (diceRoll < 4)
 		{
-			QueueFree();
+			GD.Print("Failed to germinate");
+			_sprite2D.Hide();
+			_pumpkinLifetime = 0;
+			
 			return false;
 		}
 
@@ -114,9 +112,9 @@ public partial class Pumpkin : Node2D
 	private bool setPumpkinSprite(int  pumpkinSpriteNum)
 	{
 		if (pumpkinSpriteNum == pumpkin_state_int) return false;
+
 		switch(pumpkinSpriteNum)
 		{
-			default: break;
 			case 2:
 				_sprite2D.Texture = GD.Load<Texture2D>(_pumpkinFolder + "2 - Pumpkin Sprout.png");
 				break;
@@ -149,7 +147,7 @@ public partial class Pumpkin : Node2D
 		else if ((_pumpkinLifetime <= second_phase_end) && (_pumpkinLifetime > third_phase_end))
 		{
 			// Uncomment this instead of line 153 if you want to see corruption animation for fun 
-			// if (setPumpkinSprite(4)) start_corruption();
+			//if (setPumpkinSprite(4)) start_corruption();
 			setPumpkinSprite(4);
 		}
 		else if ((_pumpkinLifetime <= third_phase_end) && (_pumpkinLifetime > 0))
@@ -158,10 +156,9 @@ public partial class Pumpkin : Node2D
 		}
 		else if (_pumpkinLifetime <= 0)
 		{
-			// delete node
-			QueueFree();
+			// hide node
+			_sprite2D.Hide();
 		}
-
 	}
 
 	// called by the main script in the future, to start corruption
