@@ -6,6 +6,7 @@ public partial class Menu : Node2D
 {
 
 	private Node2D _Node2D;
+	private Button _StartButton;
 	private Button _InstructionsButton;
 
 	private int instruction_state = -1;
@@ -16,6 +17,7 @@ public partial class Menu : Node2D
 	{
 		_Node2D = GetNode<Node2D>("Node2D");
 		_InstructionsButton = GetNode<Button>("HBoxContainer/MarginContainer/VBoxContainer/InstructionsButton");
+		_StartButton = GetNode<Button>("HBoxContainer/MarginContainer/VBoxContainer/Button");
 		_Node2D.AddToGroup("dark");
 		AddChild(new Flashlight());
 
@@ -26,6 +28,8 @@ public partial class Menu : Node2D
 				advance_instruction_state();
 			}
 		};
+
+		_StartButton.ButtonUp += () => start_game();
 
 		panels.Add(GetNode<PanelContainer>("Control/PanelContainer"));
 		panels.Add(GetNode<PanelContainer>("Control/PanelContainer2"));
@@ -66,5 +70,10 @@ public partial class Menu : Node2D
 			GD.Print("Resetting!");
 			instruction_state = -1;
 		}
+	}
+
+	public void start_game()
+	{
+		GetTree().ChangeSceneToFile("res://main.tscn");
 	}
 }

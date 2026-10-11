@@ -362,7 +362,7 @@ position = Vector2(749, 75.00003)
 scale = Vector2(0.05, 0.05)
 sprite_frames = SubResource("SpriteFrames_mgt3g")
 autoplay = "default"
-frame_progress = 0.8105881
+frame_progress = 0.30798566
 
 [node name="Bat2" type="AnimatedSprite2D" parent="Node2D" unique_id=1746696174]
 position = Vector2(810, 119)
