@@ -73,6 +73,10 @@ public partial class InventorySlot : Node2D
 
 		InventorySprite.Scale = type == ToolType.Flashlight ? new Vector2(0.15f, 0.15f) : new Vector2(1, 1);
 
+		var Globals = GetNode<Globals>("/root/Globals");
+		
+		Globals.ToolInRightHand = type;
+
 		if (isSilent) return;
 
 		AnimationPlayer.Stop(true);

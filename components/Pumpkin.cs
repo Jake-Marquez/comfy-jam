@@ -18,6 +18,7 @@ public partial class Pumpkin : Node2D
 	private AudioStreamPlayer2D _gnome_laugh;
 	private AudioStreamPlayer2D _gnome_surprise;
 	private Area2D _area_2d;
+	private TextureButton _btn;
 
 	private double _pumpkinLifetime;
 	private const string _pumpkinFolder = "res://assets/pixel_gnome_pack/Individual Files/Pumpkin/";
@@ -43,9 +44,11 @@ public partial class Pumpkin : Node2D
 		_gnome_laugh = GetNode<AudioStreamPlayer2D>("GnomeLaugh");
 		_gnome_surprise = GetNode<AudioStreamPlayer2D>("GnomeSurprise");
 		_area_2d = GetNode<Area2D>("Area2D");
+		_btn = GetNode<TextureButton>("TextureButton");
 
 		_pumpkin_evil_sprite.AnimationFinished += () => finish_corruption();
 		_area_2d.MouseEntered += () => stop_corruption();
+		_btn.ButtonUp += _on_pumpkin_click;
 
 		if (!seedGerminated())
 		{
@@ -212,5 +215,12 @@ public partial class Pumpkin : Node2D
 		{
 			_pumpkinLifetime -= 5;
 		}
+	}
+
+	private void _on_pumpkin_click()
+	{
+		var Globals = GetNode<Globals>("/root/Globals");
+		InventorySlot.ToolType InHand = Globals.ToolInRightHand;
+		GD.Print("Pumpkin clicked, tool is: " + InHand.ToString());
 	}
 }

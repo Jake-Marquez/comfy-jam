@@ -413,4 +413,10 @@ attenuation = 3.0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1162370687]
 shape = SubResource("CircleShape2D_mgt3g")
 
+[node name="TextureButton" type="TextureButton" parent="." unique_id=1863046364]
+offset_left = -7.0
+offset_top = -3.0
+offset_right = 6.0
+offset_bottom = 10.0
+
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
