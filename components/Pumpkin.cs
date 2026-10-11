@@ -12,7 +12,7 @@ public partial class Pumpkin : Node2D
 	// use init here as well
 	private const double MAX_PUMPKIN_LIFETIME = 100;
 
-	private const int PERCENT_VARIANCE = 50;
+	private const int PERCENT_VARIANCE = 5;
 
 	// can only be set once?
 	private double first_phase_end;
@@ -22,6 +22,8 @@ public partial class Pumpkin : Node2D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		GD.Print("ready");
+
 		if (!seedGerminated())
 		{
 			// maybe there should be an indicator to the user that this seed/plot hasn't germinated
@@ -33,18 +35,25 @@ public partial class Pumpkin : Node2D
 
 		setPumpkinSprite(2);
 
-		setPumpkinLifetime();
+		_pumpkinLifetime = MAX_PUMPKIN_LIFETIME;
+
+		GD.Print(_pumpkinLifetime);
+
+		//setPumpkinLifetime();
 	}
 
 	private void setPumpkinLifetime()
 	{
 		double randomVariance = Random.Shared.Next(0, PERCENT_VARIANCE + 1) / MAX_PUMPKIN_LIFETIME;
 
+		GD.Print(randomVariance);
+
 		bool coin = Random.Shared.Next(0, 2) == 1;
 
 		if (coin)
 		{
 			_pumpkinLifetime = MAX_PUMPKIN_LIFETIME - randomVariance;
+			GD.Print(_pumpkinLifetime);
 		}
 		else
 		{
@@ -80,8 +89,8 @@ public partial class Pumpkin : Node2D
 		else
 		{
 			_pumpkinNode.Visible = true;
-            return true;
-        }
+			return true;
+		}
 	}
 
 	private void setPumpkinSprite(int  pumpkinSpriteNum)
@@ -107,6 +116,8 @@ public partial class Pumpkin : Node2D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
+		//GD.Print(_pumpkinLifetime);
+
 		// make this prettier
 		if (_pumpkinLifetime > first_phase_end)
 		{
@@ -126,15 +137,15 @@ public partial class Pumpkin : Node2D
 		}
 		else if (_pumpkinLifetime <= 0)
 		{
-            // hide node
-            _pumpkinNode.Visible = false;
-        }
+			// hide node
+			_pumpkinNode.Visible = false;
+		}
 
 	}
 
 	private void _on_timer_timeout()
 	{
-		GD.Print(_pumpkinLifetime);
+		//GD.Print(_pumpkinLifetime);
 
 		if (_pumpkinLifetime > 0)
 		{

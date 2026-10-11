@@ -30,13 +30,15 @@ public partial class Main : Node2D
 		// use the godot editor and just drag a bunch in at their permanent position
 		// 1A if you are dynamically inserting, create a loop or whatever here to loop through positions 
 		// follow the below sample to dynamically instance and add
-		// PackedScene PumpkinScene = GD.Load<PackedScene>("res://components/pumpkin.tscn");
-		// Pumpkin PumpkinInstance = (Pumpkin)PumpkinScene.Instantiate();
-		// Pumpkins.AddChild(PumpkinInstance);
-		// PumpkinInstance.Position = new Vector2(100, 100);
-		// GD.Print("Pumpkin created!");
+		PackedScene PumpkinScene = GD.Load<PackedScene>("res://components/pumpkin.tscn");
+		Pumpkin PumpkinInstance = (Pumpkin)PumpkinScene.Instantiate();
+		Pumpkins.AddChild(PumpkinInstance);
+		PumpkinInstance.Position = new Vector2(100, 500);
+		PumpkinInstance.Scale = new (5, 5);
+		
+		GD.Print("Pumpkin created!");
 
-		// 2 update the pumkin scene to not delete itself, but just set nodes to hidden or switch the pumpkin image to blank
+		//for (int i = 0; i < )
 
 
 		InventorySlotLeft.DisplayTool(InventorySlot.ToolType.Flashlight, false, true);
