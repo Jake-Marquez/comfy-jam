@@ -4,7 +4,20 @@ using System;
 public partial class Pumpkin : Node2D
 {
 
+	public enum PumpkinState
+	{
+		Normal,
+		Corrupting,
+		Evil,
+		Healing
+	}
+
 	private Sprite2D _sprite2D;
+	private AnimatedSprite2D _pumpkin_evil_sprite;
+	private AnimationPlayer _animation_player;
+	private AudioStreamPlayer2D _gnome_laugh;
+	private AudioStreamPlayer2D _gnome_surprise;
+	private Area2D _area_2d;
 
 	private double _pumpkinLifetime;
 	private const string _pumpkinFolder = "res://assets/pixel_gnome_pack/Individual Files/Pumpkin/";
@@ -18,6 +31,8 @@ public partial class Pumpkin : Node2D
 	private double first_phase_end;
 	private double second_phase_end;
 	private double third_phase_end;
+	private int pumpkin_state_int = 0;
+	public PumpkinState state = PumpkinState.Normal;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -30,6 +45,14 @@ public partial class Pumpkin : Node2D
 		}
 
 		_sprite2D = GetNode<Sprite2D>("PumpkinSprite");
+		_pumpkin_evil_sprite = GetNode<AnimatedSprite2D>("PumpkinEvilSprite");
+		_animation_player = GetNode<AnimationPlayer>("AnimationPlayer");
+		_gnome_laugh = GetNode<AudioStreamPlayer2D>("GnomeLaugh");
+		_gnome_surprise = GetNode<AudioStreamPlayer2D>("GnomeSurprise");
+		_area_2d = GetNode<Area2D>("Area2D");
+
+		_pumpkin_evil_sprite.AnimationFinished += () => finish_corruption();
+		_area_2d.MouseEntered += () => stop_corruption();
 
 		setPumpkinSprite(2);
 
@@ -87,8 +110,10 @@ public partial class Pumpkin : Node2D
 		return true;
 	}
 
-	private void setPumpkinSprite(int  pumpkinSpriteNum)
+	// returns true if an image was actually changed
+	private bool setPumpkinSprite(int  pumpkinSpriteNum)
 	{
+		if (pumpkinSpriteNum == pumpkin_state_int) return false;
 		switch(pumpkinSpriteNum)
 		{
 			default: break;
@@ -105,6 +130,8 @@ public partial class Pumpkin : Node2D
 				_sprite2D.Texture = GD.Load<Texture2D>(_pumpkinFolder + "5 - Pumpkin Wilt.png");
 				break;
 		}
+		pumpkin_state_int = pumpkinSpriteNum;
+		return true;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -121,6 +148,8 @@ public partial class Pumpkin : Node2D
 		}
 		else if ((_pumpkinLifetime <= second_phase_end) && (_pumpkinLifetime > third_phase_end))
 		{
+			// Uncomment this instead of line 153 if you want to see corruption animation for fun 
+			// if (setPumpkinSprite(4)) start_corruption();
 			setPumpkinSprite(4);
 		}
 		else if ((_pumpkinLifetime <= third_phase_end) && (_pumpkinLifetime > 0))
@@ -135,10 +164,53 @@ public partial class Pumpkin : Node2D
 
 	}
 
+	// called by the main script in the future, to start corruption
+	public void start_corruption()
+	{
+		if (state == PumpkinState.Corrupting) return;
+		state = PumpkinState.Corrupting;
+		_sprite2D.Visible = false;
+		_pumpkin_evil_sprite.Visible = true;
+		_pumpkin_evil_sprite.SpeedScale = 1;
+		_pumpkin_evil_sprite.Play("corruption");
+		_animation_player.Play("gnome_in_front");
+	}
+
+	// called when the mouse (flashlight) gets close to the pumpkin
+	// reverses the corruption animation direction
+	public void stop_corruption()
+	{
+		if (state != PumpkinState.Corrupting) return;
+		state = PumpkinState.Healing;
+		_pumpkin_evil_sprite.SpeedScale = -1;
+		_animation_player.Stop();
+		_gnome_laugh.Stop();
+		_gnome_surprise.Play();
+	}
+
+	// called when the corruption animation finishes, going forward or backwards
+	private void finish_corruption()
+	{
+		// If the animation was going backwards, it reverts to original lifecycle
+		if (_pumpkin_evil_sprite.SpeedScale == -1)
+		{
+			_sprite2D.Visible = true;
+			_pumpkin_evil_sprite.Visible = false;
+			state = PumpkinState.Normal;
+		}
+
+		// If the animation was going forwards, its permanently evil now
+		if (_pumpkin_evil_sprite.SpeedScale == 1)
+		{
+			_animation_player.Stop();
+			state = PumpkinState.Evil;
+		}
+	}
+
 	private void _on_timer_timeout()
 	{
-		GD.Print(_pumpkinLifetime);
-
+		// If the state is evil, corrupting, corrupted, this timer should'nt do anything
+		if (state != PumpkinState.Normal) return;
 		if (_pumpkinLifetime > 0)
 		{
 			_pumpkinLifetime -= 5;

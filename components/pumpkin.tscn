@@ -1,18 +1,416 @@
 [gd_scene format=3 uid="uid://bvebjhm4hi3no"]
 
 [ext_resource type="Script" uid="uid://c7hbhf4qd86c8" path="res://components/Pumpkin.cs" id="1_56mgv"]
+[ext_resource type="Texture2D" uid="uid://bsfqxruuoe86t" path="res://assets/tools/54.png" id="2_u6ffq"]
 [ext_resource type="Texture2D" uid="uid://r6parra0bhr6" path="res://assets/pixel_gnome_pack/Individual Files/Pumpkin/4 - Pumpkin Full.png" id="2_vygka"]
+[ext_resource type="Texture2D" uid="uid://bkrry564qlvdq" path="res://assets/pixel_gnome_pack/Individual Files/Pumpkin/9 - Pumpkin Transformation.png" id="4_ji4op"]
+[ext_resource type="AudioStream" uid="uid://dyqukidnv1t1v" path="res://assets/sounds/gnome_laugh.mp3" id="4_u6ffq"]
+[ext_resource type="AudioStream" uid="uid://b8a1tpwydyuq3" path="res://assets/sounds/gnome_surprise.wav" id="6_nppah"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nppah"]
+atlas = ExtResource("4_ji4op")
+region = Rect2(0, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1p506"]
+atlas = ExtResource("4_ji4op")
+region = Rect2(16, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ujja8"]
+atlas = ExtResource("4_ji4op")
+region = Rect2(32, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tblqb"]
+atlas = ExtResource("4_ji4op")
+region = Rect2(48, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x6cl6"]
+atlas = ExtResource("4_ji4op")
+region = Rect2(64, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_55c77"]
+atlas = ExtResource("4_ji4op")
+region = Rect2(80, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kr7vc"]
+atlas = ExtResource("4_ji4op")
+region = Rect2(96, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ucqu2"]
+atlas = ExtResource("4_ji4op")
+region = Rect2(112, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o8k0m"]
+atlas = ExtResource("4_ji4op")
+region = Rect2(128, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vtqqv"]
+atlas = ExtResource("4_ji4op")
+region = Rect2(144, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xbk1m"]
+atlas = ExtResource("4_ji4op")
+region = Rect2(160, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fm1wg"]
+atlas = ExtResource("4_ji4op")
+region = Rect2(176, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vawyd"]
+atlas = ExtResource("4_ji4op")
+region = Rect2(192, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_plt7t"]
+atlas = ExtResource("4_ji4op")
+region = Rect2(208, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e2ar0"]
+atlas = ExtResource("4_ji4op")
+region = Rect2(224, 0, 16, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vj236"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nppah")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1p506")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ujja8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tblqb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x6cl6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_55c77")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kr7vc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ucqu2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o8k0m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vtqqv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xbk1m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fm1wg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vawyd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_plt7t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e2ar0")
+}],
+"loop": 0,
+"name": &"corruption",
+"speed": 1.0
+}]
+
+[sub_resource type="Animation" id="Animation_vygka"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GnomeInFront:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GnomeInFront:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-9, 8)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("GnomeInFront:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("GnomeInBack:self_modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("GnomeInBack:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(7, 8)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("GnomeInBack:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("GnomeInBack2:self_modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("GnomeInBack2:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -1)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("GnomeLaugh:playing")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_u6ffq"]
+resource_name = "gnome_in_front"
+length = 7.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("GnomeInFront:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.43333334, 2.4666667, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("GnomeInFront:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-9, 8), Vector2(2, 8)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("GnomeInFront:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.16666667, 0.33333334, 0.5, 0.6666667, 0.8666667, 1.0666667, 1.2666667, 1.4666667, 1.7, 1.9, 2.1, 2.3, 2.4666667, 2.6666667, 2.8333333, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.13962634015954636, 0.0, -0.13962634015954636, 0.0, 0.13962634015954636, 0.0, -0.13962634015954636, 0.0, 0.13962634015954636, 0.0, -0.13962634015954636, 0.0, 0.13962634015954636, 0.0, -0.13962634015954636, 0.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("GnomeInBack:self_modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(3.3, 3.5333333, 4.9666667, 5.1666665),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("GnomeInBack:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(3.3, 3.8, 3.9666667, 4.4666667, 4.633333, 5.1666665),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(6, 8), Vector2(8, 8), Vector2(9, 8), Vector2(9, 8), Vector2(8, 8), Vector2(6, 8)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("GnomeInBack:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(3.6333334, 3.9666667, 4.4666667, 4.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.20943951023931956, 0.20943951023931956, 0.0]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("GnomeInBack2:self_modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(5.4666667, 5.633333, 7, 7.1666665),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("GnomeInBack2:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(5.4666667, 5.9, 6.733333, 7.1666665),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, -1), Vector2(0, -5), Vector2(0, -5), Vector2(0, -1)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("GnomeLaugh:playing")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0.099999994, 6.4666667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ji4op"]
+_data = {
+&"RESET": SubResource("Animation_vygka"),
+&"gnome_in_front": SubResource("Animation_u6ffq")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mgt3g"]
+radius = 26.019224
 
 [node name="Pumpkin" type="Node2D" unique_id=733241239]
 script = ExtResource("1_56mgv")
+
+[node name="GnomeInBack" type="Sprite2D" parent="." unique_id=1321928986]
+self_modulate = Color(1, 1, 1, 0)
+texture_filter = 1
+position = Vector2(7, 8)
+scale = Vector2(0.28125, 0.28125)
+texture = ExtResource("2_u6ffq")
+
+[node name="GnomeInBack2" type="Sprite2D" parent="." unique_id=153888304]
+self_modulate = Color(1, 1, 1, 0)
+texture_filter = 1
+position = Vector2(0, -1)
+scale = Vector2(0.28125, 0.28125)
+texture = ExtResource("2_u6ffq")
 
 [node name="PumpkinSprite" type="Sprite2D" parent="." unique_id=2121162271]
 texture_filter = 1
 texture = ExtResource("2_vygka")
 
+[node name="PumpkinEvilSprite" type="AnimatedSprite2D" parent="." unique_id=1505780333]
+visible = false
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_vj236")
+animation = &"corruption"
+
 [node name="Timer" type="Timer" parent="." unique_id=1494755713]
 wait_time = 0.5
 autostart = true
 ignore_time_scale = true
+
+[node name="GnomeInFront" type="Sprite2D" parent="." unique_id=889883995]
+self_modulate = Color(1, 1, 1, 0)
+texture_filter = 1
+position = Vector2(-9, 8)
+scale = Vector2(0.28125, 0.28125)
+texture = ExtResource("2_u6ffq")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=231475438]
+libraries/ = SubResource("AnimationLibrary_ji4op")
+
+[node name="GnomeLaugh" type="AudioStreamPlayer2D" parent="." unique_id=950724035]
+stream = ExtResource("4_u6ffq")
+volume_db = -20.0
+max_distance = 2500.0
+attenuation = 3.0
+
+[node name="GnomeSurprise" type="AudioStreamPlayer2D" parent="." unique_id=1125934540]
+stream = ExtResource("6_nppah")
+volume_db = -30.0
+pitch_scale = 1.1
+max_distance = 2500.0
+attenuation = 3.0
+
+[node name="Area2D" type="Area2D" parent="." unique_id=432696066]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1162370687]
+shape = SubResource("CircleShape2D_mgt3g")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
