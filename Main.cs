@@ -25,24 +25,19 @@ public partial class Main : Node2D
 		TrimmerItem = GetNode<TextureButton>("TileMapLayers/TrimmerItem");
 		ScytheItem = GetNode<TextureButton>("TileMapLayers/ScytheItem");
         Pumpkins = GetNode<Node2D>("TileMapLayers/Pumpkins");
-
         PackedScene PumpkinScene = GD.Load<PackedScene>("res://components/pumpkin.tscn");
 
-		for (int x = 0; x < 10; x++)
+		// init pumpkin patch nodes
+		for (int x = -19; x < 35; x++)
 		{
 			for (int y = 0; y < 2; y++)
 			{
-				GD.Print("Pumpkin generated");
                 Pumpkin PumpkinInstance = (Pumpkin)PumpkinScene.Instantiate();
                 Pumpkins.AddChild(PumpkinInstance);
-                PumpkinInstance.Position = new Vector2(100 + (x * 10), 500 + (y * 10));
-                PumpkinInstance.Scale = new(5, 5);
+                PumpkinInstance.Position = new Vector2(100 + (x * 64), 540 + (y * 64));
+                PumpkinInstance.Scale = new(3, 3);
             }
-
 		}
-
-
-
 
         InventorySlotLeft.DisplayTool(InventorySlot.ToolType.Flashlight, false, true);
 		InventorySlotRight.DisplayTool(InventorySlot.ToolType.Scythe, true, true);
