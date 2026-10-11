@@ -37,12 +37,12 @@ public partial class Pumpkin : Node2D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		if (!seedGerminated())
-		{
-			// maybe there should be an indicator to the user that this seed/plot hasn't germinated
-			// alternatively, IRL you don't know that germination has failed besides seeing no sprout
-			return;
-		}
+		//if (!seedGerminated())
+		//{
+		//	// maybe there should be an indicator to the user that this seed/plot hasn't germinated
+		//	// alternatively, IRL you don't know that germination has failed besides seeing no sprout
+		//	return;
+		//}
 
 		_sprite2D = GetNode<Sprite2D>("PumpkinSprite");
 		_pumpkin_evil_sprite = GetNode<AnimatedSprite2D>("PumpkinEvilSprite");
