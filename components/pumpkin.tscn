@@ -350,9 +350,6 @@ _data = {
 &"gnome_in_front": SubResource("Animation_u6ffq")
 }
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_mgt3g"]
-radius = 26.019224
-
 [node name="Pumpkin" type="Node2D" unique_id=733241239]
 script = ExtResource("1_56mgv")
 
@@ -408,15 +405,13 @@ pitch_scale = 1.1
 max_distance = 2500.0
 attenuation = 3.0
 
-[node name="Area2D" type="Area2D" parent="." unique_id=432696066]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1162370687]
-shape = SubResource("CircleShape2D_mgt3g")
-
 [node name="TextureButton" type="TextureButton" parent="." unique_id=1863046364]
 offset_left = -7.0
 offset_top = -3.0
 offset_right = 6.0
 offset_bottom = 10.0
+
+[node name="GnomeTimer" type="Timer" parent="." unique_id=1407226572]
+autostart = true
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

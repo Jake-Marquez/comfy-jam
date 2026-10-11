@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 public partial class Pumpkin : Node2D
 {
@@ -17,14 +18,14 @@ public partial class Pumpkin : Node2D
 	private AnimationPlayer _animation_player;
 	private AudioStreamPlayer2D _gnome_laugh;
 	private AudioStreamPlayer2D _gnome_surprise;
-	private Area2D _area_2d;
 	private TextureButton _btn;
+	private Timer _gnome_timer;
 
 	private double _pumpkinLifetime;
 	private const string _pumpkinFolder = "res://assets/pixel_gnome_pack/Individual Files/Pumpkin/";
 	
 	// use init here as well
-	private const double MAX_PUMPKIN_LIFETIME = 100;
+	private const double MAX_PUMPKIN_LIFETIME = 300;
 
 	private const int PERCENT_VARIANCE = 50;
 
@@ -34,6 +35,12 @@ public partial class Pumpkin : Node2D
 	private double third_phase_end;
 	private int pumpkin_state_int = 0;
 	public PumpkinState state = PumpkinState.Normal;
+	// This is the denominator for spawn chance, default 1 in 30
+	// Increases when scared away with a flashlight
+	private int gnome_spawn_chance = 30;
+	// The lifetime percentage transitions take place at
+	// for example, 85% lifetime left - transition to phase 2, 60% left - transition to phase 3
+	private List<float> lifetime_phase_transitions = new List<float>(){ 0.85f, 0.6f, 0.15f };
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -43,12 +50,12 @@ public partial class Pumpkin : Node2D
 		_animation_player = GetNode<AnimationPlayer>("AnimationPlayer");
 		_gnome_laugh = GetNode<AudioStreamPlayer2D>("GnomeLaugh");
 		_gnome_surprise = GetNode<AudioStreamPlayer2D>("GnomeSurprise");
-		_area_2d = GetNode<Area2D>("Area2D");
 		_btn = GetNode<TextureButton>("TextureButton");
+		_gnome_timer = GetNode<Timer>("GnomeTimer");
 
 		_pumpkin_evil_sprite.AnimationFinished += () => finish_corruption();
-		_area_2d.MouseEntered += () => stop_corruption();
 		_btn.ButtonUp += _on_pumpkin_click;
+		_gnome_timer.Timeout += try_corruption;
 
 		if (!seedGerminated())
 		{
@@ -77,16 +84,9 @@ public partial class Pumpkin : Node2D
 			_pumpkinLifetime = MAX_PUMPKIN_LIFETIME + randomVariance;
 		}
 
-		double half = _pumpkinLifetime / 2;
-
-		double quarter = half / 2;
-
-		first_phase_end = _pumpkinLifetime- quarter;
-
-		second_phase_end = _pumpkinLifetime - half;
-
-		// should the third phase last longer to give the player more time to harvest?
-		third_phase_end = _pumpkinLifetime - (half + quarter);
+		first_phase_end = _pumpkinLifetime * lifetime_phase_transitions[0];
+		second_phase_end = _pumpkinLifetime * lifetime_phase_transitions[1];
+		third_phase_end = _pumpkinLifetime * lifetime_phase_transitions[2];
 	}
 
 	private bool seedGerminated()
@@ -141,7 +141,7 @@ public partial class Pumpkin : Node2D
 		// make this prettier
 		if (_pumpkinLifetime > first_phase_end)
 		{
-			return;
+			// do nothing
 		}
 		else if ((_pumpkinLifetime <= first_phase_end) && (_pumpkinLifetime > second_phase_end))
 		{
@@ -162,6 +162,24 @@ public partial class Pumpkin : Node2D
 			// hide node
 			_sprite2D.Hide();
 		}
+
+		// Calculate distance from mouse to center of scene
+        Vector2 mousePosition = GetGlobalMousePosition();
+        float distance = GlobalPosition.DistanceTo(mousePosition);
+
+		// If inside flashlight, try and stop corruption
+        if (distance < 75)
+        {
+			stop_corruption();
+        }
+	}
+
+	private void try_corruption()
+	{
+		if (state != PumpkinState.Normal) return;
+		if (pumpkin_state_int != 4) return;
+		var rand = GD.RandRange(1, gnome_spawn_chance);
+		if (rand == 1) start_corruption();
 	}
 
 	// called by the main script in the future, to start corruption
@@ -186,6 +204,7 @@ public partial class Pumpkin : Node2D
 		_animation_player.Stop();
 		_gnome_laugh.Stop();
 		_gnome_surprise.Play();
+		gnome_spawn_chance += 10;
 	}
 
 	// called when the corruption animation finishes, going forward or backwards
