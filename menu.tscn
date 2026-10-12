@@ -1,0 +1,676 @@
+[gd_scene format=3 uid="uid://cowvmesyfamlm"]
+
+[ext_resource type="Script" uid="uid://beb2d5b5k58u4" path="res://Menu.cs" id="1_4hy44"]
+[ext_resource type="Texture2D" uid="uid://bm6mpsevi8fwn" path="res://assets/autumn_pixel_backgrounds/PNG/background 1/background 1.png" id="1_lti8b"]
+[ext_resource type="Texture2D" uid="uid://bsfqxruuoe86t" path="res://assets/tools/54.png" id="2_ouk20"]
+[ext_resource type="Texture2D" uid="uid://iurvgh8oorpg" path="res://assets/bat.png" id="3_mae5d"]
+[ext_resource type="AudioStream" uid="uid://rapn2lorbngx" path="res://assets/sounds/haunted_forest.mp3" id="5_ytr4m"]
+[ext_resource type="Texture2D" uid="uid://byej6v8bcehon" path="res://assets/flashlight.png" id="6_iqepy"]
+[ext_resource type="Texture2D" uid="uid://dybe2e1sad8dt" path="res://assets/IconAtlas.png" id="7_h1wq0"]
+[ext_resource type="Texture2D" uid="uid://bxqbmlntfenwr" path="res://assets/tools/61.png" id="8_dwrpx"]
+[ext_resource type="Texture2D" uid="uid://2lcnjgja50ku" path="res://assets/tools/25.png" id="9_g7jxm"]
+[ext_resource type="Texture2D" uid="uid://b2xc0epy2w58o" path="res://assets/tools/29.png" id="10_jspdm"]
+
+[sub_resource type="Animation" id="Animation_ouk20"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node2D/Gnome1:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(48.00002, 696)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Node2D/Gnome2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1200, 600)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Node2D/Gnome3:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(795.00006, -48)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Node2D/Gnome1:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Node2D/Gnome2:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Node2D/Gnome3:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [3.1415927]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Node2D/Bat1:self_modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Node2D/Bat1:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(749, 75.00003)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Node2D/Bat2:position")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(810, 119)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Node2D/Bat2:self_modulate")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_mae5d"]
+resource_name = "gnomes"
+length = 9.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node2D/Gnome1:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4, 2.3333333, 2.7333333),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(48.00002, 696), Vector2(48, 617), Vector2(48, 617), Vector2(48.00002, 696)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Node2D/Gnome2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(3.3333333, 3.7333333, 5.3333335, 5.733333),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1200, 600), Vector2(1139, 600), Vector2(1139, 600), Vector2(1200, 600)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Node2D/Gnome3:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(6.4666667, 6.866667, 8.333333, 8.766666),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(795.00006, -48), Vector2(795, 24), Vector2(795, 24), Vector2(795.00006, -48)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Node2D/Gnome1:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.6333333, 0.9, 1.1666666, 1.4333333, 1.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.13962634015954636, 0.0, -0.13962634015954636, 0.0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Node2D/Gnome2:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(3.9, 4.133333, 4.3333335, 4.5, 4.7, 4.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.13962634015954636, 0.0, -0.13962634015954636, 0.0, 0.0]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Node2D/Gnome3:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(7.0333333, 7.2, 7.366667, 7.5333333, 7.7, 7.866667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [3.1415927, 3.2812189937493397, 3.1415927, 3.001966313430247, 3.1415927, 3.1415927]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Node2D/Bat1:self_modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(1.2666667, 1.4, 2.5333333, 2.6333334),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Node2D/Bat1:position")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(1.2666667, 2.6333334),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(749, 75.00003), Vector2(1004, 28)]
+}
+tracks/8/type = "value"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("Node2D/Bat2:position")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = {
+"times": PackedFloat32Array(1.5666667, 3.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(810, 119), Vector2(999, 61)]
+}
+tracks/9/type = "value"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("Node2D/Bat2:self_modulate")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = {
+"times": PackedFloat32Array(1.5333333, 1.6333333, 2.9, 3.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4hy44"]
+_data = {
+&"RESET": SubResource("Animation_ouk20"),
+&"gnomes": SubResource("Animation_mae5d")
+}
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4hy44"]
+atlas = ExtResource("3_mae5d")
+region = Rect2(0, 0, 1024, 1024)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ytr4m"]
+atlas = ExtResource("3_mae5d")
+region = Rect2(1024, 0, 1024, 1024)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l48gv"]
+atlas = ExtResource("3_mae5d")
+region = Rect2(2048, 0, 1024, 1024)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ecwwl"]
+atlas = ExtResource("3_mae5d")
+region = Rect2(3072, 0, 1024, 1024)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kk3ma"]
+atlas = ExtResource("3_mae5d")
+region = Rect2(4096, 0, 1024, 1024)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mgt3g"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4hy44")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ytr4m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l48gv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ecwwl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kk3ma")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vj236"]
+atlas = ExtResource("7_h1wq0")
+region = Rect2(48, 112, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2urh6"]
+atlas = ExtResource("7_h1wq0")
+region = Rect2(48, 112, 16, 16)
+
+[node name="Menu" type="Node2D" unique_id=1737122700]
+script = ExtResource("1_4hy44")
+
+[node name="Node2D" type="Node2D" parent="." unique_id=15191038]
+
+[node name="TextureRect" type="TextureRect" parent="Node2D" unique_id=698999557]
+offset_right = 1152.0
+offset_bottom = 648.0
+texture = ExtResource("1_lti8b")
+
+[node name="Panel" type="Panel" parent="Node2D/TextureRect" unique_id=1091625186]
+layout_mode = 0
+offset_left = 434.0
+offset_top = 273.0
+offset_right = 719.0
+offset_bottom = 305.0
+
+[node name="Gnome1" type="Sprite2D" parent="Node2D" unique_id=1760746902]
+texture_filter = 1
+position = Vector2(48.00002, 696)
+scale = Vector2(3, 3)
+texture = ExtResource("2_ouk20")
+
+[node name="Gnome2" type="Sprite2D" parent="Node2D" unique_id=1438119251]
+texture_filter = 1
+position = Vector2(1200, 600)
+scale = Vector2(3, 3)
+texture = ExtResource("2_ouk20")
+
+[node name="Gnome3" type="Sprite2D" parent="Node2D" unique_id=1077073743]
+texture_filter = 1
+position = Vector2(795.00006, -48)
+rotation = 3.1415927
+scale = Vector2(3, 3)
+texture = ExtResource("2_ouk20")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Node2D" unique_id=1056609009]
+root_node = NodePath("../..")
+libraries/ = SubResource("AnimationLibrary_4hy44")
+autoplay = &"gnomes"
+
+[node name="Bat1" type="AnimatedSprite2D" parent="Node2D" unique_id=1507933245]
+position = Vector2(749, 75.00003)
+scale = Vector2(0.05, 0.05)
+sprite_frames = SubResource("SpriteFrames_mgt3g")
+autoplay = "default"
+frame_progress = 0.30798566
+
+[node name="Bat2" type="AnimatedSprite2D" parent="Node2D" unique_id=1746696174]
+position = Vector2(810, 119)
+scale = Vector2(0.05, 0.05)
+sprite_frames = SubResource("SpriteFrames_mgt3g")
+autoplay = "default"
+frame_progress = 0.80085033
+
+[node name="HBoxContainer" type="Control" parent="." unique_id=999557629]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer" unique_id=1008206735]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -54.5
+offset_top = -324.0
+offset_right = 54.5
+offset_bottom = 324.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/MarginContainer" unique_id=1005004734]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="HBoxContainer/MarginContainer/VBoxContainer" unique_id=767020519]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8126892, 0.06912089, 2.8878452e-07, 1)
+theme_override_font_sizes/font_size = 24
+text = "Gnome More Pumpkins!"
+
+[node name="Button" type="Button" parent="HBoxContainer/MarginContainer/VBoxContainer" unique_id=1095796964]
+custom_minimum_size = Vector2(125, 0)
+custom_maximum_size = Vector2(125, -1)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Start"
+
+[node name="InstructionsButton" type="Button" parent="HBoxContainer/MarginContainer/VBoxContainer" unique_id=1072405781]
+custom_minimum_size = Vector2(125, 0)
+custom_maximum_size = Vector2(125, -1)
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Instructions"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1359785556]
+stream = ExtResource("5_ytr4m")
+volume_db = -10.0
+autoplay = true
+
+[node name="Control" type="Control" parent="." unique_id=972730688]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 295.0
+offset_top = 532.0
+offset_right = 335.0
+offset_bottom = 572.0
+
+[node name="PanelContainer" type="PanelContainer" parent="Control" unique_id=110508114]
+visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/PanelContainer" unique_id=1246177666]
+layout_mode = 2
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 26
+theme_override_constants/margin_bottom = 6
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/PanelContainer/MarginContainer" unique_id=2026009376]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Control/PanelContainer/MarginContainer/HBoxContainer" unique_id=1488508153]
+texture_filter = 1
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+texture = ExtResource("2_ouk20")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/PanelContainer/MarginContainer/HBoxContainer" unique_id=1093879323]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer" unique_id=200695300]
+layout_mode = 2
+size_flags_vertical = 10
+text = "This is an evil gnome. They want to corrupt your pumpkins!"
+
+[node name="Button" type="Button" parent="Control/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer" unique_id=1892646175]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 10
+text = "Next"
+
+[node name="PanelContainer2" type="PanelContainer" parent="Control" unique_id=308440430]
+visible = false
+layout_mode = 0
+offset_right = 591.0
+offset_bottom = 108.0
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/PanelContainer2" unique_id=1908362564]
+layout_mode = 2
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 26
+theme_override_constants/margin_bottom = 6
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/PanelContainer2/MarginContainer" unique_id=1390875268]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Control/PanelContainer2/MarginContainer/HBoxContainer" unique_id=464501875]
+texture_filter = 1
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+texture = ExtResource("6_iqepy")
+expand_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/PanelContainer2/MarginContainer/HBoxContainer" unique_id=489861801]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="Control/PanelContainer2/MarginContainer/HBoxContainer/VBoxContainer" unique_id=2061653248]
+layout_mode = 2
+size_flags_vertical = 10
+text = "But you know their weakness - they hate being seen!"
+
+[node name="Button" type="Button" parent="Control/PanelContainer2/MarginContainer/HBoxContainer/VBoxContainer" unique_id=2118911333]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 10
+text = "Next"
+
+[node name="PanelContainer3" type="PanelContainer" parent="Control" unique_id=2068106195]
+visible = false
+layout_mode = 0
+offset_right = 591.0
+offset_bottom = 108.0
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/PanelContainer3" unique_id=679665518]
+layout_mode = 2
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 6
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/PanelContainer3/MarginContainer" unique_id=1217553836]
+layout_mode = 2
+
+[node name="TextureRect2" type="TextureRect" parent="Control/PanelContainer3/MarginContainer/HBoxContainer" unique_id=1221455887]
+texture_filter = 1
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+texture = SubResource("AtlasTexture_vj236")
+flip_h = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/PanelContainer3/MarginContainer/HBoxContainer" unique_id=1240436089]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="Control/PanelContainer3/MarginContainer/HBoxContainer/VBoxContainer" unique_id=1103474547]
+layout_mode = 2
+size_flags_vertical = 10
+text = "Patrol your garden with the arrow keys"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="Control/PanelContainer3/MarginContainer/HBoxContainer/VBoxContainer" unique_id=1425260562]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 10
+text = "Next"
+
+[node name="TextureRect" type="TextureRect" parent="Control/PanelContainer3/MarginContainer/HBoxContainer" unique_id=1899598396]
+texture_filter = 1
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+texture = SubResource("AtlasTexture_2urh6")
+
+[node name="PanelContainer4" type="PanelContainer" parent="Control" unique_id=1756052862]
+visible = false
+layout_mode = 0
+offset_right = 591.0
+offset_bottom = 108.0
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/PanelContainer4" unique_id=233795524]
+layout_mode = 2
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 26
+theme_override_constants/margin_bottom = 6
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/PanelContainer4/MarginContainer" unique_id=467732610]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Control/PanelContainer4/MarginContainer/HBoxContainer" unique_id=1544637613]
+texture_filter = 1
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+texture = ExtResource("8_dwrpx")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/PanelContainer4/MarginContainer/HBoxContainer" unique_id=1512246577]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="Control/PanelContainer4/MarginContainer/HBoxContainer/VBoxContainer" unique_id=1530834304]
+layout_mode = 2
+size_flags_vertical = 10
+text = "Left click items to pick them up, right click to use them"
+
+[node name="Button" type="Button" parent="Control/PanelContainer4/MarginContainer/HBoxContainer/VBoxContainer" unique_id=1011888109]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 10
+text = "Next"
+
+[node name="PanelContainer5" type="PanelContainer" parent="Control" unique_id=2024844898]
+visible = false
+layout_mode = 0
+offset_top = -115.0
+offset_right = 591.0
+offset_bottom = 108.0
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/PanelContainer5" unique_id=1840261725]
+layout_mode = 2
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 26
+theme_override_constants/margin_bottom = 6
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/PanelContainer5/MarginContainer" unique_id=1558256114]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/PanelContainer5/MarginContainer/VBoxContainer" unique_id=722623745]
+layout_mode = 2
+text = "Items:"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/PanelContainer5/MarginContainer/VBoxContainer" unique_id=83819797]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/PanelContainer5/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1850641025]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TextureRect" type="TextureRect" parent="Control/PanelContainer5/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1817056417]
+texture_filter = 1
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("8_dwrpx")
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="Control/PanelContainer5/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1879474322]
+layout_mode = 2
+text = "Seed Bag
+Plant Pumpkins"
+horizontal_alignment = 1
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Control/PanelContainer5/MarginContainer/VBoxContainer/HBoxContainer" unique_id=518283122]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TextureRect" type="TextureRect" parent="Control/PanelContainer5/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2" unique_id=1180991628]
+texture_filter = 1
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("9_g7jxm")
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="Control/PanelContainer5/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer2" unique_id=738011715]
+layout_mode = 2
+text = "Trimmer
+Harvest Pumpkins"
+horizontal_alignment = 1
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="Control/PanelContainer5/MarginContainer/VBoxContainer/HBoxContainer" unique_id=362041811]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TextureRect" type="TextureRect" parent="Control/PanelContainer5/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer3" unique_id=1133067205]
+texture_filter = 1
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+size_flags_horizontal = 4
+texture = ExtResource("10_jspdm")
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="Control/PanelContainer5/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer3" unique_id=1010372527]
+layout_mode = 2
+text = "Scythe	
+Destroy Evil"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="Control/PanelContainer5/MarginContainer/VBoxContainer" unique_id=1057053600]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 10
+text = "Done"
