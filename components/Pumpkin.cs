@@ -101,7 +101,7 @@ public partial class Pumpkin : Node2D
 
 		if (diceRoll < 4)
 		{
-			GD.Print("Failed to germinate");
+			//GD.Print("Failed to germinate");
 			_sprite2D.Hide();
 			_pumpkinLifetime = 0;
 			
@@ -112,6 +112,7 @@ public partial class Pumpkin : Node2D
 	}
 
 	// returns true if an image was actually changed
+	// also sets pumpkin_state_int
 	private bool setPumpkinSprite(int  pumpkinSpriteNum)
 	{
 		if (pumpkinSpriteNum == pumpkin_state_int) return false;
@@ -164,14 +165,14 @@ public partial class Pumpkin : Node2D
 		}
 
 		// Calculate distance from mouse to center of scene
-        Vector2 mousePosition = GetGlobalMousePosition();
-        float distance = GlobalPosition.DistanceTo(mousePosition);
+		Vector2 mousePosition = GetGlobalMousePosition();
+		float distance = GlobalPosition.DistanceTo(mousePosition);
 
 		// If inside flashlight, try and stop corruption
-        if (distance < 75)
-        {
+		if (distance < 75)
+		{
 			stop_corruption();
-        }
+		}
 	}
 
 	private void try_corruption()
@@ -241,5 +242,68 @@ public partial class Pumpkin : Node2D
 		var Globals = GetNode<Globals>("/root/Globals");
 		InventorySlot.ToolType InHand = Globals.ToolInRightHand;
 		GD.Print("Pumpkin clicked, tool is: " + InHand.ToString());
+
+		switch(InHand)
+		{
+			case InventorySlot.ToolType.Flashlight:
+				GD.PrintErr("Flashlight should not be in right hand");
+				break;
+			case InventorySlot.ToolType.SeedBag:
+				sowNewPumpkin();
+				break;
+			case InventorySlot.ToolType.Scythe:
+				killPumpkin();
+				break;
+			case InventorySlot.ToolType.Trimmer:
+				if (harvestPumpkin())
+				{
+					// add points to some counter;
+				}
+				break;
+		}
+	}
+
+	private void sowNewPumpkin()
+	{
+		// seedbag should place a new pumpkin seed only if the plot is completely empty
+		if (isDead())
+		{
+			// change sprite temporarily to seed?
+			setPumpkinSprite(2);
+			setPumpkinLifetime();
+			_sprite2D.Visible = true;
+		}
+		else
+		{
+			GD.PrintErr("Cannot sow, plot is not empty!");
+		}
+	}
+
+	private void killPumpkin()
+	{
+		_pumpkinLifetime = 0;
+		pumpkin_state_int = 0;
+		_sprite2D.Hide();
+
+		GD.Print("Pumpkin eliminated!");
+	}
+
+	private bool isDead()
+	{
+		return (_pumpkinLifetime <= 0) && (pumpkin_state_int == 0) && !_sprite2D.IsVisibleInTree();
+	}
+
+	private bool harvestPumpkin()
+	{
+		if (pumpkin_state_int == 4)
+		{
+			killPumpkin();
+			return true;
+		}
+		else
+		{
+			GD.PrintErr("Cannot harvest!");
+			return false;
+		}
 	}
 }
