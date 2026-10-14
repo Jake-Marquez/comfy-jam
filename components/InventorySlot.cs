@@ -21,7 +21,7 @@ public partial class InventorySlot : Node2D
 		[ToolType.Flashlight] = "res://assets/flashlight.png"
 	};
 
-	public Dictionary<ToolType, string> ToolSounds { get; private set; } = new Dictionary<ToolType, string>
+	public static Dictionary<ToolType, string> ToolSounds { get; private set; } = new Dictionary<ToolType, string>
 	{
 		[ToolType.Scythe] = "res://assets/sounds/scythe.mp3",
 		[ToolType.SeedBag] = "res://assets/sounds/bag.mp3",
