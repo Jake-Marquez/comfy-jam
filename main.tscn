@@ -9,6 +9,8 @@
 [ext_resource type="Texture2D" uid="uid://cprtug24llesx" path="res://assets/tools/6.png" id="6_kek77"]
 [ext_resource type="Texture2D" uid="uid://2lcnjgja50ku" path="res://assets/tools/25.png" id="8_4c57u"]
 [ext_resource type="PackedScene" uid="uid://clyon2hmkmi3w" path="res://components/inventory_slot.tscn" id="9_kek77"]
+[ext_resource type="AudioStream" uid="uid://57331wglx6o2" path="res://assets/sounds/comfy_jam_bg_loop.wav" id="10_efxa6"]
+[ext_resource type="AudioStream" uid="uid://rapn2lorbngx" path="res://assets/sounds/haunted_forest.mp3" id="11_dg77c"]
 [ext_resource type="AudioStream" uid="uid://b8ud2ilad5fvv" path="res://assets/sounds/walking.mp3" id="10_4c57u"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7mycd"]
@@ -275,6 +277,14 @@ scale = Vector2(1.5, 1.5)
 [node name="InventorySlotRight" parent="CanvasLayer" unique_id=1034482932 instance=ExtResource("9_kek77")]
 position = Vector2(626, 35)
 scale = Vector2(1.5, 1.5)
+
+[node name="BgMusic" type="AudioStreamPlayer2D" parent="." unique_id=117619802]
+stream = ExtResource("10_efxa6")
+autoplay = true
+
+[node name="ForestSounds" type="AudioStreamPlayer2D" parent="." unique_id=1628247758]
+stream = ExtResource("11_dg77c")
+autoplay = true
 
 [node name="Walking" type="AudioStreamPlayer2D" parent="." unique_id=1897794876]
 stream = ExtResource("10_4c57u")
