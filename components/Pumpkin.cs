@@ -20,6 +20,7 @@ public partial class Pumpkin : Node2D
 	private AudioStreamPlayer2D _gnome_surprise;
 	private TextureButton _btn;
 	private Timer _gnome_timer;
+	private AudioStreamPlayer2D _audio_stream_player;
 
 	private double _pumpkinLifetime;
 	private const string _pumpkinFolder = "res://assets/pixel_gnome_pack/Individual Files/Pumpkin/";
@@ -52,6 +53,7 @@ public partial class Pumpkin : Node2D
 		_gnome_surprise = GetNode<AudioStreamPlayer2D>("GnomeSurprise");
 		_btn = GetNode<TextureButton>("TextureButton");
 		_gnome_timer = GetNode<Timer>("GnomeTimer");
+		_audio_stream_player = GetNode<AudioStreamPlayer2D>("AudioStreamPlayer2D");
 
 		_pumpkin_evil_sprite.AnimationFinished += () => finish_corruption();
 		_btn.ButtonUp += _on_pumpkin_click;
@@ -260,6 +262,12 @@ public partial class Pumpkin : Node2D
 					// add points to some counter;
 				}
 				break;
+		}
+
+		if (InventorySlot.ToolSounds.ContainsKey(InHand))
+		{
+			_audio_stream_player.Stream = GD.Load<AudioStream>(InventorySlot.ToolSounds[InHand]);
+			_audio_stream_player.Play();
 		}
 	}
 
