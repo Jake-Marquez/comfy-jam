@@ -26,7 +26,7 @@ public partial class Pumpkin : Node2D
 	private const string _pumpkinFolder = "res://assets/pixel_gnome_pack/Individual Files/Pumpkin/";
 	
 	// use init here as well
-	private const double MAX_PUMPKIN_LIFETIME = 300;
+	public double MAX_PUMPKIN_LIFETIME = 300;
 
 	private const int PERCENT_VARIANCE = 50;
 
@@ -73,6 +73,20 @@ public partial class Pumpkin : Node2D
 
 	private void setPumpkinLifetime()
 	{
+
+		// Override this scenes properties with exported variables from main for testing
+		if (GetParent().GetParent().GetParent() is Main parent)
+		{
+			gnome_spawn_chance = parent.GnomeChanceDenominator;
+			MAX_PUMPKIN_LIFETIME = parent.PumpkinLifetime;
+			lifetime_phase_transitions = new List<float>()
+			{
+				parent.PumpkinSproutSpeed,
+				parent.PumpkinMatureSpeed,
+				parent.PumpkinExpireSpeed
+			};
+		}
+
 		double randomVariance = Random.Shared.Next(0, PERCENT_VARIANCE + 1) / MAX_PUMPKIN_LIFETIME;
 
 		bool coin = Random.Shared.Next(0, 2) == 1;
@@ -94,22 +108,17 @@ public partial class Pumpkin : Node2D
 	private bool seedGerminated()
 	{
 		//randomly delete node aka the seed did not germinate
-
 		// a cursory google search finds that the germination rate is 85-90%
 		// let's choose a 3/20 chance of failure
 		// we may want to make the odds worse to make the gameplay more interesting
-
-		int diceRoll = Random.Shared.Next(1, 21);
-
-		if (diceRoll < 4)
+		// jm: yeah there are way too many pumpkins on startup. we need like 60% failure
+		int diceRoll = GD.RandRange(1, 50);
+		if (diceRoll < 30)
 		{
-			//GD.Print("Failed to germinate");
 			_sprite2D.Hide();
 			_pumpkinLifetime = 0;
-			
 			return false;
 		}
-
 		return true;
 	}
 
@@ -174,6 +183,11 @@ public partial class Pumpkin : Node2D
 		if (distance < 75)
 		{
 			stop_corruption();
+			heal_pumpkin_faster();
+		}
+		else
+		{
+			reset_pumpkin_healing();
 		}
 	}
 
@@ -210,11 +224,24 @@ public partial class Pumpkin : Node2D
 		gnome_spawn_chance += 10;
 	}
 
+	// called when the flashlight is near the pumpkin - if its corrupted and healing, speed up the healing
+	private void heal_pumpkin_faster()
+	{
+		if (state != PumpkinState.Healing) return;
+		_pumpkin_evil_sprite.SpeedScale = -3f;
+	}
+
+	private void reset_pumpkin_healing()
+	{
+		if (state != PumpkinState.Healing) return;
+		_pumpkin_evil_sprite.SpeedScale = -1f;
+	}
+
 	// called when the corruption animation finishes, going forward or backwards
 	private void finish_corruption()
 	{
 		// If the animation was going backwards, it reverts to original lifecycle
-		if (_pumpkin_evil_sprite.SpeedScale == -1)
+		if (_pumpkin_evil_sprite.SpeedScale < 0)
 		{
 			_sprite2D.Visible = true;
 			_pumpkin_evil_sprite.Visible = false;
