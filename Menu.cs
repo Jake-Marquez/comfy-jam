@@ -8,6 +8,7 @@ public partial class Menu : Node2D
 	private Node2D _Node2D;
 	private Button _StartButton;
 	private Button _InstructionsButton;
+	private AudioStreamPlayer2D _MenuClick;
 
 	private int instruction_state = -1;
 	private List<PanelContainer> panels = new List<PanelContainer>();
@@ -18,6 +19,7 @@ public partial class Menu : Node2D
 		_Node2D = GetNode<Node2D>("Node2D");
 		_InstructionsButton = GetNode<Button>("HBoxContainer/MarginContainer/VBoxContainer/InstructionsButton");
 		_StartButton = GetNode<Button>("HBoxContainer/MarginContainer/VBoxContainer/Button");
+		_MenuClick = GetNode<AudioStreamPlayer2D>("MenuClick");
 		_Node2D.AddToGroup("dark");
 		AddChild(new Flashlight());
 
@@ -53,6 +55,7 @@ public partial class Menu : Node2D
 
 	public void advance_instruction_state()
 	{
+		_MenuClick.Play();
 		foreach (var item in panels)
 		{
 			item.Visible = false;
@@ -74,6 +77,7 @@ public partial class Menu : Node2D
 
 	public void start_game()
 	{
+		_MenuClick.Play();
 		GetTree().ChangeSceneToFile("res://main.tscn");
 	}
 }

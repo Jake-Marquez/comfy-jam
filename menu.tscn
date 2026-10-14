@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://bsfqxruuoe86t" path="res://assets/tools/54.png" id="2_ouk20"]
 [ext_resource type="Texture2D" uid="uid://iurvgh8oorpg" path="res://assets/bat.png" id="3_mae5d"]
 [ext_resource type="AudioStream" uid="uid://rapn2lorbngx" path="res://assets/sounds/haunted_forest.mp3" id="5_ytr4m"]
+[ext_resource type="AudioStream" uid="uid://c7ri0ji8x8q5o" path="res://assets/sounds/menu_click.mp3" id="6_h1wq0"]
 [ext_resource type="Texture2D" uid="uid://byej6v8bcehon" path="res://assets/flashlight.png" id="6_iqepy"]
 [ext_resource type="Texture2D" uid="uid://dybe2e1sad8dt" path="res://assets/IconAtlas.png" id="7_h1wq0"]
 [ext_resource type="Texture2D" uid="uid://bxqbmlntfenwr" path="res://assets/tools/61.png" id="8_dwrpx"]
@@ -426,6 +427,10 @@ text = "Instructions"
 stream = ExtResource("5_ytr4m")
 volume_db = -10.0
 autoplay = true
+
+[node name="MenuClick" type="AudioStreamPlayer2D" parent="." unique_id=256437068]
+stream = ExtResource("6_h1wq0")
+volume_db = -10.0
 
 [node name="Control" type="Control" parent="." unique_id=972730688]
 layout_mode = 3
