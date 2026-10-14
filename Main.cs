@@ -13,18 +13,37 @@ public partial class Main : Node2D
 	private TextureButton TrimmerItem;
 	private TextureButton ScytheItem;
     private Node2D Pumpkins;
+    private Camera2D Camera;
+    private AudioStreamPlayer2D Walking;
+
+	[Export]
+	public float PumpkinSproutSpeed { get; set; } = 0.85f;
+	[Export]
+	public float PumpkinMatureSpeed { get; set; } = 0.6f;
+	[Export]
+	public float PumpkinExpireSpeed { get; set; } = 0.15f;
+	[Export]
+	public double PumpkinLifetime { get; set; } = 500;
+	[Export]
+	public int PumpkinChanceDenominator { get; set; } = 50;
+	[Export]
+	public int GnomeChanceDenominator { get; set; } = 60;
+
+	private bool camera_zoomed = false;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
 	{
 		_texture_rect = GetNode<TextureRect>("TextureRect");
 		_tile_map_layers = GetNode<Node2D>("TileMapLayers");
-		InventorySlotLeft = GetNode<InventorySlot>("InventorySlotLeft");
-		InventorySlotRight = GetNode<InventorySlot>("InventorySlotRight");
+		InventorySlotLeft = GetNode<InventorySlot>("CanvasLayer/InventorySlotLeft");
+		InventorySlotRight = GetNode<InventorySlot>("CanvasLayer/InventorySlotRight");
 		SeedBagItem = GetNode<TextureButton>("TileMapLayers/SeedBagItem");
 		TrimmerItem = GetNode<TextureButton>("TileMapLayers/TrimmerItem");
 		ScytheItem = GetNode<TextureButton>("TileMapLayers/ScytheItem");
         Pumpkins = GetNode<Node2D>("TileMapLayers/Pumpkins");
+        Camera = GetNode<Camera2D>("Camera2D");
+        Walking = GetNode<AudioStreamPlayer2D>("Walking");
         PackedScene PumpkinScene = GD.Load<PackedScene>("res://components/pumpkin.tscn");
 
 		// init pumpkin patch nodes
@@ -77,29 +96,20 @@ public partial class Main : Node2D
 	public override void _Process(double delta)
 	{
 		Vector2 direction = Vector2.Zero;
-        // Input.IsActionPressed checks if the key is currently being held down
         if (Input.IsActionPressed("right"))
         {
-            // direction.X += 1;
-			//GD.Print("right");
 			move_right();
+			if (!Walking.Playing) Walking.Play();
         }
         if (Input.IsActionPressed("left"))
         {
-            // direction.X -= 1;
-			//GD.Print("left");
 			move_left();
+			if (!Walking.Playing) Walking.Play();
         }
-        if (Input.IsActionPressed("down"))
-        {
-            // direction.Y += 1;
-			GD.Print("down");
-        }
-        if (Input.IsActionPressed("up"))
-        {
-            // direction.Y -= 1;
-			GD.Print("up");
-        }
+		if (Input.IsActionJustReleased("right") || Input.IsActionJustReleased("left"))
+		{
+			Walking.Stop();
+		}
 	}
 
 	// Gently bobs the node up and down forever around its starting height.
@@ -118,6 +128,10 @@ public partial class Main : Node2D
 			_texture_rect.Position += new Vector2(-0.1f, 0);
 			_tile_map_layers.Position += new Vector2(-10, 0);
 		}
+		if (_tile_map_layers.Position.X < 1500)
+		{
+			ZoomInCamera();
+		}
 	}
 
 	public void move_left()
@@ -127,6 +141,10 @@ public partial class Main : Node2D
 			_texture_rect.Position += new Vector2(0.1f, 0);
 			_tile_map_layers.Position += new Vector2(10, 0);
 		}
+		if (_tile_map_layers.Position.X > 1500)
+		{
+			ZoomOutCamera();
+		}
 	}
 
 	public void PickupItem(InventorySlot.ToolType type)
@@ -135,5 +153,27 @@ public partial class Main : Node2D
 		TrimmerItem.Visible = type != InventorySlot.ToolType.Trimmer;
 		ScytheItem.Visible = type != InventorySlot.ToolType.Scythe;
 		InventorySlotRight.DisplayTool(type, true);
+	}
+
+	public void ZoomInCamera()
+	{
+		if (camera_zoomed) return;
+		Tween tween = Camera.CreateTween().SetTrans(Tween.TransitionType.Sine).SetEase(Tween.EaseType.In);
+		tween.SetParallel(true);
+		tween.TweenProperty(Camera, "zoom", new Vector2(1.5f, 1.5f), 0.6);
+		tween.TweenProperty(Camera, "position:y", 436, 0.6);
+		tween.TweenProperty(Camera, "position:x", 768, 0.6);
+		camera_zoomed = true;
+	}
+
+	public void ZoomOutCamera()
+	{
+		if (!camera_zoomed) return;
+		Tween tween = Camera.CreateTween().SetTrans(Tween.TransitionType.Sine).SetEase(Tween.EaseType.In);
+		tween.SetParallel(true);
+		tween.TweenProperty(Camera, "zoom", new Vector2(1.0f, 1.0f), 0.6f);
+		tween.TweenProperty(Camera, "position:y", 324, 0.6);
+		tween.TweenProperty(Camera, "position:x", 576, 0.6);
+		camera_zoomed = false;
 	}
 }
