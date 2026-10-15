@@ -21,6 +21,7 @@ public partial class Pumpkin : Node2D
 	private TextureButton _btn;
 	private Timer _gnome_timer;
 	private AudioStreamPlayer2D _audio_stream_player;
+	private ScoreLabel _scoreLabel;
 
 	private double _pumpkinLifetime;
 	private const string _pumpkinFolder = "res://assets/pixel_gnome_pack/Individual Files/Pumpkin/";
@@ -54,6 +55,8 @@ public partial class Pumpkin : Node2D
 		_btn = GetNode<TextureButton>("TextureButton");
 		_gnome_timer = GetNode<Timer>("GnomeTimer");
 		_audio_stream_player = GetNode<AudioStreamPlayer2D>("AudioStreamPlayer2D");
+		_scoreLabel = GetNode<ScoreLabel>("/root/Node2D/CanvasLayer/ScoreLabel");
+
 
 		_pumpkin_evil_sprite.AnimationFinished += () => finish_corruption();
 		_btn.ButtonUp += _on_pumpkin_click;
@@ -286,7 +289,7 @@ public partial class Pumpkin : Node2D
 			case InventorySlot.ToolType.Trimmer:
 				if (harvestPumpkin())
 				{
-					// add points to some counter;
+					_scoreLabel.AddPoints(1);
 				}
 				break;
 		}
