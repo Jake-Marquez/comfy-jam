@@ -15,8 +15,6 @@ public partial class TimerLabel : Label
 	// This method runs every time the Timer node ticks (every 1 second)
 	public void OnTimerTimeout()
 	{
-		GD.Print("called OnTimerTimeout()");
-
 		if (_timeRemaining > 0)
 		{
 			_timeRemaining--;
