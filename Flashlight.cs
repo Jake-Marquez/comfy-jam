@@ -9,7 +9,7 @@ using System.Collections.Generic;
 public partial class Flashlight : Node
 {
 	[Export] public string DarkGroup = "dark";
-	[Export] public float Radius = 120f;
+	[Export] public float Radius = 80f;
 	[Export] public float Softness = 40f;
 	[Export(PropertyHint.Range, "0,1")] public float DefaultDarkness = 0.85f;
 	[Export] public bool On = true;

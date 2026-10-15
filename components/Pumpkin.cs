@@ -1,4 +1,5 @@
 using Godot;
+using Godot.Collections;
 using System;
 using System.Collections.Generic;
 
@@ -20,6 +21,7 @@ public partial class Pumpkin : Node2D
 	private AudioStreamPlayer2D _gnome_surprise;
 	private TextureButton _btn;
 	private Timer _gnome_timer;
+	private Timer _evil_animation_timer;
 	private AudioStreamPlayer2D _audio_stream_player;
 
 	private double _pumpkinLifetime;
@@ -53,11 +55,15 @@ public partial class Pumpkin : Node2D
 		_gnome_surprise = GetNode<AudioStreamPlayer2D>("GnomeSurprise");
 		_btn = GetNode<TextureButton>("TextureButton");
 		_gnome_timer = GetNode<Timer>("GnomeTimer");
+		_evil_animation_timer = GetNode<Timer>("EvilAnimationTimer");
 		_audio_stream_player = GetNode<AudioStreamPlayer2D>("AudioStreamPlayer2D");
 
 		_pumpkin_evil_sprite.AnimationFinished += () => finish_corruption();
 		_btn.ButtonUp += _on_pumpkin_click;
 		_gnome_timer.Timeout += try_corruption;
+		_evil_animation_timer.Timeout += try_evil_animation;
+
+		_evil_animation_timer.WaitTime += GD.RandRange(0, 10);
 
 		if (!seedGerminated())
 		{
@@ -240,6 +246,22 @@ public partial class Pumpkin : Node2D
 	// called when the corruption animation finishes, going forward or backwards
 	private void finish_corruption()
 	{
+		// Catch death and other random animation finishes
+		GD.Print("finish_corruption: ", _pumpkin_evil_sprite.Animation);
+		if (_pumpkin_evil_sprite.Animation == "death")
+		{
+			killPumpkinAfter();
+			_pumpkin_evil_sprite.Visible = false;
+			return;
+		}
+		var anims = new Array<string> { "random1", "random2", "random3" };
+		if (anims.Contains(_pumpkin_evil_sprite.Animation))
+		{
+			_pumpkin_evil_sprite.Animation = "corruption";
+			_pumpkin_evil_sprite.Frame = 14;
+			return;
+		}
+
 		// If the animation was going backwards, it reverts to original lifecycle
 		if (_pumpkin_evil_sprite.SpeedScale < 0)
 		{
@@ -316,10 +338,21 @@ public partial class Pumpkin : Node2D
 
 	private void killPumpkin()
 	{
+		if (state == PumpkinState.Evil)
+		{
+			_pumpkin_evil_sprite.Play("death");
+		}
+		else
+		{
+			killPumpkinAfter();
+		}
+	}
+
+	private void killPumpkinAfter()
+	{
 		_pumpkinLifetime = 0;
 		pumpkin_state_int = 0;
 		_sprite2D.Hide();
-
 		GD.Print("Pumpkin eliminated!");
 	}
 
@@ -339,6 +372,16 @@ public partial class Pumpkin : Node2D
 		{
 			GD.PrintErr("Cannot harvest!");
 			return false;
+		}
+	}
+
+	private void try_evil_animation()
+	{
+		if (state == PumpkinState.Evil && _pumpkin_evil_sprite.IsPlaying() == false)
+		{
+			var anims = new Array<string> { "random1", "random2", "random3" };
+			string anim = anims.PickRandom();
+			_pumpkin_evil_sprite.Play(anim);
 		}
 	}
 }
