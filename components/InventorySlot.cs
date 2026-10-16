@@ -34,6 +34,7 @@ public partial class InventorySlot : Node2D
 	private Sprite2D RightHandSprite;
 	private AnimationPlayer AnimationPlayer;
 	private AudioStreamPlayer2D AudioStreamPlayer2D;
+	private ProgressBar ToolCooldown;
 
 
 	// Configuration properties for this instance
@@ -48,13 +49,24 @@ public partial class InventorySlot : Node2D
 		RightHandSprite = GetNode<Sprite2D>("RightHandSprite");
 		AnimationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
 		AudioStreamPlayer2D = GetNode<AudioStreamPlayer2D>("AudioStreamPlayer2D");
+		ToolCooldown = GetNode<ProgressBar>("ToolCooldown");
+
+		var _globals = GetNode<Globals>("/root/Globals");
+		_globals.ToolCooldownStart += run_progress_bar;
 
 		DisplayTool(CurrentType, IsRightHand, true);
+	}
+
+	public override void _ExitTree()
+	{
+		GetNode<Globals>("/root/Globals").ToolCooldownStart -= run_progress_bar;
 	}
 
 	// Public method that loads tool and hand at start up and dynamically throughout game
 	public void DisplayTool(ToolType type, bool? isRightHand, bool isSilent = false)
 	{
+		if (isRightHand.HasValue) IsRightHand = isRightHand.Value;
+
 		if (isRightHand.HasValue && isRightHand.Value == true)
 		{
 			LeftHandSprite.Visible = false;
@@ -88,5 +100,24 @@ public partial class InventorySlot : Node2D
 			AudioStreamPlayer2D.Play();
 		}
 
+	}
+
+	public void run_progress_bar()
+	{
+		GD.Print("run progress bar");
+		if (!IsRightHand) return;
+		ToolCooldown.Value = 0;
+		ToolCooldown.Visible = true;
+		var tween = CreateTween();
+		tween.TweenProperty(ToolCooldown, "value", 100, 3);
+		tween.TweenCallback(Callable.From(() => finish_progress_bar()));
+	}
+
+	public void finish_progress_bar()
+	{
+		var Globals = GetNode<Globals>("/root/Globals");
+		ToolCooldown.Visible = false;
+		ToolCooldown.Value = 0;
+		Globals.EmitSignal(Globals.SignalName.ToolCooldownEnd);
 	}
 }

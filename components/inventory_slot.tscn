@@ -86,3 +86,11 @@ libraries/ = SubResource("AnimationLibrary_rfxdy")
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=4114712]
 visible = false
 stream = ExtResource("5_aw2xw")
+
+[node name="ToolCooldown" type="ProgressBar" parent="." unique_id=869252689]
+visible = false
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = -11.0
+show_percentage = false
