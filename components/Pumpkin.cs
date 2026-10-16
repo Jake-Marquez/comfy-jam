@@ -23,6 +23,7 @@ public partial class Pumpkin : Node2D
 	private Timer _gnome_timer;
 	private Timer _evil_animation_timer;
 	private AudioStreamPlayer2D _audio_stream_player;
+	private ScoreLabel _scoreLabel;
 
 	private double _pumpkinLifetime;
 	private const string _pumpkinFolder = "res://assets/pixel_gnome_pack/Individual Files/Pumpkin/";
@@ -57,6 +58,8 @@ public partial class Pumpkin : Node2D
 		_gnome_timer = GetNode<Timer>("GnomeTimer");
 		_evil_animation_timer = GetNode<Timer>("EvilAnimationTimer");
 		_audio_stream_player = GetNode<AudioStreamPlayer2D>("AudioStreamPlayer2D");
+		_scoreLabel = GetNode<ScoreLabel>("/root/Node2D/CanvasLayer/ScoreLabel");
+
 
 		_pumpkin_evil_sprite.AnimationFinished += () => finish_corruption();
 		_btn.ButtonUp += _on_pumpkin_click;
@@ -178,6 +181,7 @@ public partial class Pumpkin : Node2D
 		else if (_pumpkinLifetime <= 0)
 		{
 			// hide node
+			setPumpkinSprite(0);
 			_sprite2D.Hide();
 		}
 
@@ -308,7 +312,7 @@ public partial class Pumpkin : Node2D
 			case InventorySlot.ToolType.Trimmer:
 				if (harvestPumpkin())
 				{
-					// add points to some counter;
+					_scoreLabel.AddPoints(1);
 				}
 				break;
 		}
@@ -332,6 +336,8 @@ public partial class Pumpkin : Node2D
 		}
 		else
 		{
+			GD.Print(_pumpkinLifetime);
+			GD.Print(pumpkin_state_int);	
 			GD.PrintErr("Cannot sow, plot is not empty!");
 		}
 	}
@@ -353,12 +359,14 @@ public partial class Pumpkin : Node2D
 		_pumpkinLifetime = 0;
 		pumpkin_state_int = 0;
 		_sprite2D.Hide();
-		GD.Print("Pumpkin eliminated!");
+		_pumpkin_evil_sprite.Stop();
+		_pumpkin_evil_sprite.Visible = false;
+		state = PumpkinState.Normal;
 	}
 
 	private bool isDead()
 	{
-		return (_pumpkinLifetime <= 0) && (pumpkin_state_int == 0) && !_sprite2D.IsVisibleInTree();
+		return (_pumpkinLifetime <= 0) && (pumpkin_state_int == 0) && !_sprite2D.Visible;
 	}
 
 	private bool harvestPumpkin()
