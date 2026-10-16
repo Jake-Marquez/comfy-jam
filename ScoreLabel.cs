@@ -14,6 +14,8 @@ public partial class ScoreLabel : Label
     // Call this public method from other game objects to increase the score
     public void AddPoints(int points)
     {
+        var Globals = GetNode<Globals>("/root/Globals");
+		Globals.Score += 1;
         _score += points;
         UpdateScoreDisplay();
     }

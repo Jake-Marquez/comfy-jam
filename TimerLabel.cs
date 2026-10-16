@@ -7,6 +7,9 @@ public partial class TimerLabel : Label
 	[Export] 
 	private int _timeRemaining = 120; 
 
+	[Signal]
+    public delegate void EndGameEventHandler();
+
 	public override void _Ready()
 	{
 		UpdateTimerDisplay();
@@ -36,7 +39,6 @@ public partial class TimerLabel : Label
 
 	private void TriggerGameOver()
 	{
-		GD.Print("Time is up! Game Over.");
-		// Add your game-over logic here (e.g., pause game, load menu scene)
+		EmitSignal(SignalName.EndGame);
 	}
 }

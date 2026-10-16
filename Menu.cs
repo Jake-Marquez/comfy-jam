@@ -8,7 +8,13 @@ public partial class Menu : Node2D
 	private Node2D _Node2D;
 	private Button _StartButton;
 	private Button _InstructionsButton;
+	private Button _RestartButton;
 	private AudioStreamPlayer2D _MenuClick;
+	private Control _GameOverScreen;
+	private TextureRect _GameStartTextureRect;
+	private Panel _GameStartPanel;
+	private Control _GameHboxContainer;
+	private Label _GameScoreLabel;
 
 	private int instruction_state = -1;
 	private List<PanelContainer> panels = new List<PanelContainer>();
@@ -21,6 +27,14 @@ public partial class Menu : Node2D
 		_StartButton = GetNode<Button>("HBoxContainer/MarginContainer/VBoxContainer/Button");
 		_MenuClick = GetNode<AudioStreamPlayer2D>("MenuClick");
 		_Node2D.AddToGroup("dark");
+		_RestartButton = GetNode<Button>("Control2/PanelContainer/MarginContainer/VBoxContainer/Button");
+		_GameOverScreen = GetNode<Control>("Control2");
+		_GameStartTextureRect = GetNode<TextureRect>("TextureRect");
+		_GameStartPanel = GetNode<Panel>("Panel");
+		_GameStartTextureRect.AddToGroup("dark");
+		_GameStartPanel.AddToGroup("dark");
+		_GameHboxContainer = GetNode<Control>("HBoxContainer");
+		_GameScoreLabel = GetNode<Label>("Control2/PanelContainer/MarginContainer/VBoxContainer/Label2");
 		AddChild(new Flashlight());
 
 		_InstructionsButton.ButtonUp += () =>
@@ -32,6 +46,7 @@ public partial class Menu : Node2D
 		};
 
 		_StartButton.ButtonUp += () => start_game();
+		_RestartButton.ButtonUp += () => hide_game_over_screen();
 
 		panels.Add(GetNode<PanelContainer>("Control/PanelContainer"));
 		panels.Add(GetNode<PanelContainer>("Control/PanelContainer2"));
@@ -49,6 +64,13 @@ public partial class Menu : Node2D
 		foreach (string path in instruction_panel_buttons)
 		{
 			GetNode<Button>(path).ButtonUp += advance_instruction_state;
+		}
+
+		var Globals = GetNode<Globals>("/root/Globals");
+		if (Globals.hasGameJustEnded)
+		{
+			Globals.hasGameJustEnded = false;
+			show_game_over_screen();
 		}
 
 	}
@@ -77,7 +99,25 @@ public partial class Menu : Node2D
 
 	public void start_game()
 	{
+		var Globals = GetNode<Globals>("/root/Globals");
+		Globals.Score = 0;
 		_MenuClick.Play();
 		GetTree().ChangeSceneToFile("res://main.tscn");
+	}
+
+	public void show_game_over_screen()
+	{
+		_GameOverScreen.Visible = true;
+		_GameStartPanel.Visible = false;
+		_GameHboxContainer.Visible = false;
+		var Globals = GetNode<Globals>("/root/Globals");
+		_GameScoreLabel.Text = "Points: " + Globals.Score.ToString();
+	}
+
+	public void hide_game_over_screen()
+	{
+		_GameOverScreen.Visible = false;
+		_GameStartPanel.Visible = true;
+		_GameHboxContainer.Visible = true;
 	}
 }

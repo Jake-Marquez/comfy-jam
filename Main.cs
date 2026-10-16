@@ -15,6 +15,8 @@ public partial class Main : Node2D
     private Node2D Pumpkins;
     private Camera2D Camera;
     private AudioStreamPlayer2D Walking;
+	private Timer GameRoundTimer;
+	private TimerLabel TimerLabel;
 
 	[Export]
 	public float PumpkinSproutSpeed { get; set; } = 0.85f;
@@ -44,10 +46,12 @@ public partial class Main : Node2D
         Pumpkins = GetNode<Node2D>("TileMapLayers/Pumpkins");
         Camera = GetNode<Camera2D>("Camera2D");
         Walking = GetNode<AudioStreamPlayer2D>("Walking");
+		GameRoundTimer = GetNode<Timer>("GameRoundTimer");
+		TimerLabel = GetNode<TimerLabel>("CanvasLayer/TimerLabel");
         PackedScene PumpkinScene = GD.Load<PackedScene>("res://components/pumpkin.tscn");
 
 		// init pumpkin patch nodes
-		for (int x = -19; x < 35; x++)
+		for (int x = -19; x < 18; x++)
 		{
 			for (int y = 0; y < 2; y++)
 			{
@@ -82,6 +86,8 @@ public partial class Main : Node2D
 				delay += 0.4f;
 			}
 		}
+
+		TimerLabel.EndGame += EndGame;
 		// Node toastParty = GetNode<Node>("/root/ToastParty");
 		// var toastConfig = new Godot.Collections.Dictionary
         // {
@@ -123,7 +129,7 @@ public partial class Main : Node2D
 
 	public void move_right() // 1200 - -1200
 	{
-		if (_tile_map_layers.Position.X >= -1300)
+		if (_tile_map_layers.Position.X >= -100)
 		{
 			_texture_rect.Position += new Vector2(-0.1f, 0);
 			_tile_map_layers.Position += new Vector2(-10, 0);
@@ -175,5 +181,12 @@ public partial class Main : Node2D
 		tween.TweenProperty(Camera, "position:y", 324, 0.6);
 		tween.TweenProperty(Camera, "position:x", 576, 0.6);
 		camera_zoomed = false;
+	}
+
+	public void EndGame()
+	{
+		var Globals = GetNode<Globals>("/root/Globals");
+		Globals.hasGameJustEnded = true;
+		GetTree().ChangeSceneToFile("res://menu.tscn");
 	}
 }
