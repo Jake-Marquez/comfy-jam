@@ -175,6 +175,7 @@ public partial class Pumpkin : Node2D
 		else if (_pumpkinLifetime <= 0)
 		{
 			// hide node
+			setPumpkinSprite(0);
 			_sprite2D.Hide();
 		}
 
@@ -313,6 +314,8 @@ public partial class Pumpkin : Node2D
 		}
 		else
 		{
+			GD.Print(_pumpkinLifetime);
+			GD.Print(pumpkin_state_int);	
 			GD.PrintErr("Cannot sow, plot is not empty!");
 		}
 	}
@@ -322,13 +325,14 @@ public partial class Pumpkin : Node2D
 		_pumpkinLifetime = 0;
 		pumpkin_state_int = 0;
 		_sprite2D.Hide();
-
-		GD.Print("Pumpkin eliminated!");
+		_pumpkin_evil_sprite.Stop();
+		_pumpkin_evil_sprite.Visible = false;
+		state = PumpkinState.Normal;
 	}
 
 	private bool isDead()
 	{
-		return (_pumpkinLifetime <= 0) && (pumpkin_state_int == 0) && !_sprite2D.IsVisibleInTree();
+		return (_pumpkinLifetime <= 0) && (pumpkin_state_int == 0) && !_sprite2D.Visible;
 	}
 
 	private bool harvestPumpkin()

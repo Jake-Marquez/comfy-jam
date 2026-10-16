@@ -377,6 +377,8 @@ visible = false
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_vj236")
 animation = &"corruption"
+frame = 2
+frame_progress = 0.96114796
 
 [node name="Timer" type="Timer" parent="." unique_id=1494755713]
 wait_time = 0.5
