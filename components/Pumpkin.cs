@@ -68,9 +68,6 @@ public partial class Pumpkin : Node2D
 
 		_evil_animation_timer.WaitTime += GD.RandRange(0, 10);
 
-		var Globals = GetNode<Globals>("/root/Globals");
-		Globals.ToolCooldownEnd += on_tool_cooldown_end;
-
 		if (!seedGerminated())
 		{
 			// maybe there should be an indicator to the user that this seed/plot hasn't germinated
