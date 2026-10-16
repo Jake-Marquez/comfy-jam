@@ -99,6 +99,8 @@ public partial class Menu : Node2D
 
 	public void start_game()
 	{
+		var Globals = GetNode<Globals>("/root/Globals");
+		Globals.Score = 0;
 		_MenuClick.Play();
 		GetTree().ChangeSceneToFile("res://main.tscn");
 	}
@@ -109,7 +111,7 @@ public partial class Menu : Node2D
 		_GameStartPanel.Visible = false;
 		_GameHboxContainer.Visible = false;
 		var Globals = GetNode<Globals>("/root/Globals");
-		_GameScoreLabel.Text = "Points: " + Globals.score.ToString();
+		_GameScoreLabel.Text = "Points: " + Globals.Score.ToString();
 	}
 
 	public void hide_game_over_screen()
