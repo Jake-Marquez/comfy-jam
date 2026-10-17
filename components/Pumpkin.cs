@@ -173,6 +173,9 @@ public partial class Pumpkin : Node2D
 			// Uncomment this instead of line 153 if you want to see corruption animation for fun 
 			//if (setPumpkinSprite(4)) start_corruption();
 			setPumpkinSprite(4);
+			// Add a static 10% chance they immediately corrupt
+			var rand = GD.RandRange(1, 10);
+			if (rand == 5) start_corruption();
 		}
 		else if ((_pumpkinLifetime <= third_phase_end) && (_pumpkinLifetime > 0))
 		{
@@ -298,51 +301,58 @@ public partial class Pumpkin : Node2D
 		InventorySlot.ToolType InHand = Globals.ToolInRightHand;
 		GD.Print("Pumpkin clicked, tool is: " + InHand.ToString());
 
+		bool play_sound = false;
+
 		switch(InHand)
 		{
 			case InventorySlot.ToolType.Flashlight:
 				GD.PrintErr("Flashlight should not be in right hand");
 				break;
 			case InventorySlot.ToolType.SeedBag:
-				sowNewPumpkin();
+				play_sound = sowNewPumpkin();
 				break;
 			case InventorySlot.ToolType.Scythe:
-				killPumpkin();
+				play_sound = killPumpkin();
 				break;
 			case InventorySlot.ToolType.Trimmer:
 				if (harvestPumpkin())
 				{
 					_scoreLabel.AddPoints(1);
+					play_sound = true;
 				}
 				break;
 		}
 
-		if (InventorySlot.ToolSounds.ContainsKey(InHand))
+		if (InventorySlot.ToolSounds.ContainsKey(InHand) && play_sound)
 		{
 			_audio_stream_player.Stream = GD.Load<AudioStream>(InventorySlot.ToolSounds[InHand]);
 			_audio_stream_player.Play();
 		}
 	}
 
-	private void sowNewPumpkin()
+	private bool sowNewPumpkin()
 	{
 		// seedbag should place a new pumpkin seed only if the plot is completely empty
-		if (isDead())
+		var Globals = GetNode<Globals>("/root/Globals");
+		if (isDead() && Globals.can_sow_pumpkin)
 		{
 			// change sprite temporarily to seed?
 			setPumpkinSprite(2);
 			setPumpkinLifetime();
 			_sprite2D.Visible = true;
+			Globals.EmitSignal(Globals.SignalName.ToolCooldownStart);
+			return true;
 		}
 		else
 		{
 			GD.Print(_pumpkinLifetime);
 			GD.Print(pumpkin_state_int);	
 			GD.PrintErr("Cannot sow, plot is not empty!");
+			return false;
 		}
 	}
 
-	private void killPumpkin()
+	private bool killPumpkin()
 	{
 		if (state == PumpkinState.Evil)
 		{
@@ -352,6 +362,7 @@ public partial class Pumpkin : Node2D
 		{
 			killPumpkinAfter();
 		}
+		return true;
 	}
 
 	private void killPumpkinAfter()
